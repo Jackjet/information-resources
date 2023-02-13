@@ -1,0 +1,35 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE' //目前统一2.0.4版本
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'd1.project'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven{ url 'http://code.z012.com:8081/repository/d1-java/'}//我们的私有maven库
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    compile('com.alibaba:fastjson:1.2.66')
+    compile('net.dcrun.component:email:1.0.5')
+    compile('net.dcrun.component:sms.ucpass:1.0.3')
+    compile('net.dcrun.component:http:1.1.8')
+    compile ('net.dcrun.component:sms.aliyun:1.0.3')
+}

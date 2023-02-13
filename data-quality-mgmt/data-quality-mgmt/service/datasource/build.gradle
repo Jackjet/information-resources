@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'd1.project'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'http://47.105.38.251:8081/repository/d1-java/' }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    implementation ('mysql:mysql-connector-java:8.0.23')
+    implementation('org.postgresql:postgresql:42.2.10')
+    implementation('com.microsoft.sqlserver:mssql-jdbc:6.1.0.jre8')
+    implementation ('oracle:ojdbc:8.0.0')
+
+    implementation('com.alibaba:fastjson:1.2.51')
+}

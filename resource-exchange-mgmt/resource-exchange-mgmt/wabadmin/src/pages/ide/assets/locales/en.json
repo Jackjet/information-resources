@@ -1,0 +1,42 @@
+{
+  "toolbar": {
+    "run": "Start",
+    "stop": "Stop",
+    "save": "Save",
+    "sync": "Sync",
+    "backup": "Code backup",
+    "backup-mirror": "Backup mirror",
+    "setting": "Setting"
+  },
+  "widgets": {
+    "studio": "Studio",
+    "files": "Files",
+    "treeview": "Tree View",
+    "options": "Options",
+    "code": "Code",
+    "anmation": "Anmation",
+    "style": "Style",
+    "overview": "Overview",
+    "pages": "Pages",
+    "styles": "Styles",
+    "images": "Images",
+    "new-dir": "New Directory",
+    "new-file": "New File",
+    "rename": "Rename",
+    "delete": "Delete",
+    "reset": "Reset",
+    "select": "-- Select --",
+    "enter-message": "Press enter finished",
+    "duplicate": "Duplicate",
+    "same-warning": "Name already exist.",
+    "micro-app-dev": "micro app develop",
+    "micro-app-dir": "DCRun Project",
+    "log-output": "Log output",
+    "doc": "Doc Center",
+    "cancel": "Cancel",
+    "create": "Create",
+    "dir-name": "Dir Name",
+    "file-name": "File Name",
+    "file-dir": "File/Dir Name"
+  }
+}

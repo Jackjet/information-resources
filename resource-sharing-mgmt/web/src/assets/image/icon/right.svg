@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="24px" viewBox="0 0 31 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>00</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="部门需求" transform="translate(-806.000000, -226.000000)" fill="#0080FF" fill-rule="nonzero">
+            <g id="编组-5" transform="translate(661.000000, 214.000000)">
+                <g id="00" transform="translate(145.000000, 12.000000)">
+                    <polygon id="路径" opacity="0.400000006" points="21.0357143 1.78340446 22.2812472 0 31 12 22.2812472 24 21.0357143 22.2165955 28.3778195 11.9999694"></polygon>
+                    <polygon id="路径备份-4" opacity="0.200000003" points="11.0714286 1.78340446 12.3169615 0 21.0357143 12 12.3169615 24 11.0714286 22.2165955 18.4135338 11.9999694"></polygon>
+                    <polygon id="路径备份-5" opacity="0.100000001" points="0 1.78340446 1.24553295 0 9.96428571 12 1.24553295 24 0 22.2165955 7.34210526 11.9999694"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

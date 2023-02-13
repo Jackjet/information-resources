@@ -1,0 +1,71 @@
+---dcrun文件结构---
+
+[temp]  尽量保持空
+[files]
+	- basic  从开发者下载得到
+		node
+			install
+				[fileName.zip]
+				info.json {"name":"fileName", "version":"2"}
+		webapi
+			source
+				[fileName.zip]
+				info.json {"name":"fileName", "version":"2"}
+			install
+				[fileName.zip]
+				info.json {"name":"fileName", "version":"2"}
+			[components]
+				[开发者id]
+	        		[组件id]
+						[版本]
+		 					开发者id_组件id.js
+		emq
+			[空文件]
+		dcapi
+			install
+				[fileName.zip]
+				info.json {"name":"fileName", "version":"2"}
+		datacache
+			install
+				[fileName.zip]
+				info.json {"name":"fileName", "version":"2"}
+
+	- service  系统服务文件(需要备份此文件)
+		-integrationId - 用户id
+			- node
+			- emq
+			- webapi
+			- dcapi
+			- datacache
+				- appid1 (需要删除)
+				- appid2
+
+	-download(删除任何系统服务或者节点的时候会去删除这个目录下的文件)(需要备份此文件)
+		- node
+			节点appid.zip
+			install-节点appid.sh
+		- webapi
+			系统服务appid.zip
+		- emq
+		- dcapi
+		- datacache
+
+	- [build] (需要备份此文件)
+		[webapi]
+			[temp]
+				自定义服务id-时间戳.zip
+			自定义服务id.zip
+
+
+- recources
+	- template
+		- node
+			.sh 模板
+			.properties 模板
+			.bat 模板
+		- emq
+			.json 模板
+		- webapi
+			.xml 模板
+		- dcapi
+		- datacache

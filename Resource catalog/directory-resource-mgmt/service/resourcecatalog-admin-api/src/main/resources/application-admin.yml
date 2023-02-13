@@ -1,0 +1,73 @@
+spring:
+  profiles:
+    active: db, core, admin
+  messages:
+    encoding: UTF-8
+  servlet:
+    # 文件上传大小限制
+    multipart:
+      max-file-size: 40MB
+      max-request-size: 40MB
+
+server:
+  port: 8084
+logging:
+  level:
+    root:  ERROR
+    org.springframework:  ERROR
+    org.mybatis:  DEBUG
+    com.digitalchina.resourcecatalog.admin:  DEBUG
+    com.digitalchina.resourcecatalog:  DEBUG
+
+#自定义配置
+resourcecatalog:
+  ##用户初始密码
+  user:
+    init:
+      password: 123456
+  ##初始化部门、机构、应用系统、业务事项第一级默认节点
+  tree:
+    init:
+      dept: 河北区
+  ##综合门户url
+  portalUrl: http://10.15.1.20/integration_manage/index.html
+
+#对外接口密钥
+apiKey: 7be5499f37034ef5bdc387f5382cd6be
+
+#authentication:
+# realm: tianjin
+#keycloak:
+#  securityConstraints:
+#    - authRoles:
+#        - default_role
+#      securityCollections:
+#        - patterns:
+#            - /*
+
+#authentication:
+#  admin:
+#    credentials:
+#      secret: d9e4e40a-2e4f-4de8-af20-a4358e114693
+#    resource: tianjin_admin
+#  auth-server-url: http://8.140.114.226:9001/auth
+#  credentials:
+#    secret: 2d2219d7-8ce6-4473-988a-d0340b9f2142
+#  enabled: true
+#  realm: tianjin
+#  resource: resource_catalog
+#  ssl-required: none
+#  use-resource-role-mappings: false
+#keycloak:
+#  securityConstraints:
+#    - authRoles:
+#        - default_role
+#      securityCollections:
+#        - patterns:
+#            - /*
+#
+#keycloak.securityConstraints[1].securityCollections[0].patterns[0]: /api/*
+keycloakTokenCheck:
+  auth-server-url: http://8.140.114.226:9001/auth/
+  realm: tianjin
+  resource: resource_catalog_js

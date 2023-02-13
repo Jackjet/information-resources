@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.ArchBusiMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+        <id column="busi_id" property="busiId"/>
+        <result column="busi_no" property="busiNo"/>
+        <result column="busi_nm" property="busiNm"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="service_obj" property="serviceObj"/>
+        <result column="remark" property="remark"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="p_id" property="pId"/>
+        <result column="busi_type" property="busiType"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        busi_id, busi_no, busi_nm, dept_id, service_obj, remark, created_by, created_time, updated_by, updated_time, busi_type
+    </sql>
+
+    <select id="selectByPage"></select>
+
+    <!--    通过部门id关联表获取List-->
+    <select id="getBusInfoByOrgId" parameterType="java.lang.Integer"
+            resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+        SELECT
+        b.*<!--,d."name" as serviceObjName-->
+        FROM
+        arch_busi b
+       <!-- LEFT JOIN "cata_org_item_rel" r ON b.busi_id = r.item_id
+        LEFT JOIN sys_dict d ON b.service_obj = d."value" and d.TYPE = 'service_obj'
+        -->
+        where 1=1
+        <if test="orgId !=null and orgId != ''">
+            and b.dept_id =#{orgId}
+        </if>
+        <if test="containsChild !=null and containsChild = '0'">
+            and (b.p_id is null or b.p_id=0)
+        </if>
+        order by b.p_id, b.busi_no
+    </select>
+    <!--    获取所有的权责清单-->
+    <select id="selectListContainsOrgNm" resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi" parameterType="java.lang.String">
+        SELECT
+            b.*,
+            o.org_nm AS "orgNm"
+        FROM arch_busi b
+        LEFT JOIN arch_org o ON b.dept_id = o.org_id
+        <if test="deptIds != null and deptIds !=''">
+            WHERE a.org_id in
+            <foreach collection="deptIds" item="deptId" index="index" open="(" separator="," close=")">
+                #{deptId}
+            </foreach>
+        </if>
+        order by b.p_id
+    </select>
+    <select id="getBusInfoByDept" parameterType="java.lang.Integer"
+            resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+        select * from arch_busi where dept_id=#{orgId} and p_id is null
+        order by busi_no
+    </select>
+
+
+    <!--    通过deptId获取List-->
+    <select id="selectByDeptId" resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+        SELECT
+        b.*
+        FROM
+        "arch_busi" b
+        LEFT JOIN (
+        select bus_id, count(1) as num	from "cata_bus_info_rel" as cbir where type=0 GROUP BY bus_id
+        ) as cbi ON b.busi_id=cbi.bus_id
+        WHERE
+        1=1
+        <if test="id !=null and id != ''">
+            AND b.dept_id = #{id}
+        </if>
+        <if test="name !=null and name != ''">
+            AND b.busi_nm like CONCAT(CONCAT('%',#{name}),'%')
+        </if>
+        <if test="filterCata ==0">
+            AND (cbi.num is null or cbi.num=0)
+        </if>
+        <if test="filterCata ==1">
+            AND cbi.num > 0
+        </if>
+        ORDER BY b.p_id , b.busi_id
+    </select>
+
+    <!--    通过pid获取List-->
+    <select id="selectByPid" parameterType="java.lang.Integer"
+            resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+                SELECT
+            b.*
+        FROM
+            "arch_busi" b
+            LEFT JOIN (
+                select bus_id, count(1) as num	from "cata_bus_info_rel" as cbir where type=0 GROUP BY bus_id
+            ) as cbi ON b.busi_id=cbi.bus_id
+        WHERE
+            b.p_id = #{pId}
+        <if test="filterCata ==0">
+            AND (cbi.num is null or cbi.num=0)
+        </if>
+        <if test="filterCata ==1">
+            AND cbi.num > 0
+        </if>
+        ORDER BY b.busi_no
+    </select>
+
+    <!--    详情-->
+    <select id="detail" parameterType="java.lang.Integer"
+            resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+        SELECT
+            b.*,
+            d."name" AS "serviceObjName",
+            o.org_nm AS "orgNm",
+            b2.busi_nm AS "pBusiNm"
+        FROM
+            "arch_busi" b
+            LEFT JOIN sys_dict d ON b.service_obj = d."value" and d.TYPE = 'service_obj'
+            LEFT JOIN arch_org o ON o.org_id = b.dept_id
+            LEFT JOIN "arch_busi" b2 ON b.p_id = b2.busi_id
+        WHERE
+            b.busi_id =#{busiId}
+    </select>
+
+    <select id="getBusiNoMaxByPId" resultType="java.lang.Long">
+        SELECT
+        "max" ( right( busi_no, 4 ) :: bigint )
+        FROM
+        "arch_busi"
+        <trim prefix="where" prefixOverrides="and">
+            <if test="pId != null ">
+                and p_id =#{pId}
+            </if>
+            <if test="deptId != null and deptId != ''">
+                and dept_id =#{deptId}
+            </if>
+        </trim>
+    </select>
+    <select id="getFirstLevelMaxDeptBusiNo" resultType="java.util.Map">
+        SELECT
+            dept_id as deptid,  "max" ( right( busi_no, 4 ) :: bigint ) as maxno
+        FROM
+                ( select * from  "arch_busi" where p_id=0 ) as first_level
+        GROUP BY dept_id
+        ORDER BY dept_id asc
+    </select>
+    <select id="getAppListByBusiId" parameterType="java.lang.Integer"
+            resultType="com.digitalchina.resourcecatalog.db.domain.ArchAppSys">
+        SELECT
+            s.appsys_id  "appsysId",
+            s.appsys_no "appsysNo",
+            s.appsys_nm "appsysNm"
+        FROM
+				arch_app_sys s
+        WHERE s.appsys_id in (select r.app_id from cata_app_bus_rel r where  r.item_id = #{busiId})
+    </select>
+
+    <select id="cataInfoPage" resultType="java.util.HashMap">
+        <if test="type==0">
+            SELECT
+            e.uview_id "uviewId",
+            e.uview_no "uviewNo",
+            e.uview_nm "uviewNm",
+            o.org_nm "orgNm",
+            o.org_cd "orgCd"
+            FROM
+            cata_info_temp e
+            LEFT JOIN arch_org o ON o.org_id = e.prov_org_id
+            WHERE
+            e.prov_org_id = #{orgId} and e.deleted=0
+            <if test="cataName != null and cataName != ''">
+                and e.uview_nm LIKE CONCAT(CONCAT('%',#{cataName}),'%')
+            </if>
+            <if test="infoIds !=null and infoIds.size > 0">
+                and e.uview_id not in
+                <foreach collection="infoIds" item="infoId" index="index" open="(" separator="," close=")">
+                    #{infoId}
+                </foreach>
+            </if>
+            ORDER BY e.uview_no
+        </if>
+        <if test="type==1">
+            SELECT
+            r."id" "uviewId",
+            r.code "uviewNo",
+            r."name" "uviewNm",
+            o.org_nm "orgNm",
+            r.prov_org_code "provOrgCode"
+            FROM
+            cata_require r
+            LEFT JOIN arch_org o ON o.org_id = r.prov_org_id
+            where r.dept_id=#{orgId} and r.deleted=0
+            <if test="cataName != null and cataName != ''">
+                and r."name" LIKE CONCAT(CONCAT('%',#{cataName}),'%')
+            </if>
+            <if test="infoIds !=null and infoIds.size > 0">
+                and r.id not in
+                <foreach collection="infoIds" item="infoId" index="index" open="(" separator="," close=")">
+                    #{infoId}
+                </foreach>
+            </if>
+            order by r.code
+        </if>
+
+    </select>
+
+    <select id="countByDepts" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM
+        cata_info_temp e
+        INNER JOIN cata_info_item_temp_rel s ON e.uview_id = s.uview_id
+        where e.deleted=0
+        <if test="deptIds != null and deptIds.size>0">
+            and e.prov_org_id in
+            <foreach collection="deptIds" item="deptId" index="index" open="(" separator="," close=")">
+                #{deptId}
+            </foreach>
+        </if>
+    </select>
+
+    <!--    通过部门id,获取该部门下机构关联了的权责清单List-->
+    <select id="getExportBusisByDepId" parameterType="java.lang.Integer"
+            resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+        SELECT o.org_nm as orgNm,o.org_duty as orgDuty,
+        b.*,d."name" as serviceObjName
+        FROM
+        arch_busi b
+        LEFT JOIN "cata_org_item_rel" r ON b.busi_id = r.item_id
+        LEFT JOIN sys_dict d ON b.service_obj = d."value" and d.TYPE = 'service_obj'
+		LEFT JOIN arch_org o ON r.org_id = o.org_id
+        where r.dept_id=#{depId}
+        order by o.org_cd,b.busi_no
+    </select>
+</mapper>

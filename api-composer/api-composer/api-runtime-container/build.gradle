@@ -1,0 +1,54 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE' //目前统一2.0.4版本
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'd1.project.container.api'
+version = '1.0.0'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://code.z012.com:8081/repository/d1-java/' }
+    maven { url 'http://code.z012.com:8081/repository/d1-api/' }
+    //component maven
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-websocket')
+    compile 'commons-io:commons-io:2.6'
+    runtime 'com.h2database:h2'
+
+    compile 'net.dcrun.component:log:1.0.8'
+    compile 'net.dcrun.component:security:1.0.1'
+    compile('net.dcrun.component:file.server:1.0.4')
+
+    //component dependencies
+    implementation project(':base')
+    implementation project(':choice')
+    implementation project(':mysql')
+    implementation project(':postgresql')
+    implementation project(':oracle')
+    implementation project(':script')
+    implementation project(':http')
+    implementation project(':excel')
+    implementation project(':sqlserver')
+    implementation project(':email')
+    implementation project(':dameng')
+    implementation project(':webservice')
+    implementation project(':smsAliyun')
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.CataRequireMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.CataRequire">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="code" property="code" />
+        <result column="institution_id" property="institutionId" />
+        <result column="institution_code" property="institutionCode" />
+        <result column="is_access" property="isAccess" />
+        <result column="access_way" property="accessWay" />
+        <result column="use_frequency" property="useFrequency" />
+        <result column="remark" property="remark" />
+        <result column="purpose" property="purpose" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_id" property="updateId" />
+        <result column="update_name" property="updateName" />
+        <result column="update_time" property="updateTime" />
+        <result column="deleted" property="deleted" />
+        <result column="dept_id" property="deptId" />
+        <result column="org_id" property="orgId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, code, institution_id, institution_code, is_access, access_way, use_frequency, remark, purpose, create_by, create_time, update_id, update_name, update_time,deleted,dept_id,org_id
+    </sql>
+
+	<select id="selectSequence" resultType="int">
+		select nextval(#{seq}::regclass)
+	</select>
+	
+	<select id="selectPages" resultType="com.digitalchina.resourcecatalog.db.domain.CataRequire">
+		
+		select a.*,c.org_nm provOrgName from cata_require a 
+		left join arch_org c on c.org_id=a.prov_org_id
+		where a.deleted=0 
+		<if test="deptId != null and deptId != ''">
+		and a.dept_id in(${deptId})
+		</if>
+		<if test="code != null and code != ''">
+	        and a.code like CONCAT(CONCAT('%',#{code}),'%')
+	    </if>
+		<if test="name != null and name != ''">
+	        and a.name like CONCAT(CONCAT('%',#{name}),'%')
+	    </if>
+		<if test="nameAndCode != null and nameAndCode != ''">
+			and (a.code like CONCAT(CONCAT('%',#{nameAndCode}),'%') or a.name like CONCAT(CONCAT('%',#{nameAndCode}),'%'))
+		</if>
+		order by a.create_time desc
+	</select>
+</mapper>

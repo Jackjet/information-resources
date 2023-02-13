@@ -1,0 +1,42 @@
+{
+  "toolbar": {
+    "run": "启动",
+    "stop": "停止",
+    "save": "保存",
+    "sync": "同步",
+    "backup": "代码备份",
+    "backup-mirror": "备份镜像",
+    "setting": "设置"
+  },
+  "widgets": {
+    "studio": "组件",
+    "files": "文件",
+    "treeview": "节点树",
+    "options": "属性",
+    "code": "代码",
+    "anmation": "动画",
+    "style": "样式",
+    "overview": "概览",
+    "pages": "页面",
+    "styles": "样式",
+    "images": "图片",
+    "new-dir": "新建目录",
+    "new-file": "新建文件",
+    "rename": "重命名",
+    "delete": "删除",
+    "reset": "重置",
+    "select": "-- 选择 --",
+    "enter-message": "按回车结束输入",
+    "duplicate": "克隆",
+    "same-warning": "文件名重复，请重新命名。",
+    "micro-app-dev": "微应用开发",
+    "micro-app-dir": "DCRun Project",
+    "log-output": "日志输出",
+    "doc": "文档中心",
+    "cancel": "取消",
+    "create": "创建",
+    "dir-name": "目录名",
+    "file-name": "文件名",
+    "file-dir": "文件/目录名"
+  }
+}

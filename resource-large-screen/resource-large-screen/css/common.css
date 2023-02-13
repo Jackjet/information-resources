@@ -1,0 +1,223 @@
+@charset "utf-8";
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font: 12px/1.5 "\5FAE\8F6F\96C5\9ED1", arial;
+    *line-height: 1.5
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+    font-style: normal;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: courier new, courier, monospace;
+}
+
+ul,
+li,
+ol {
+    list-style: none;
+}
+
+fieldset,
+img {
+    border: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input,
+button,
+textarea,
+select,
+optgroup,
+option {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    font-size: 100%;
+}
+
+
+.clearfix:after {
+    /* content: ""; */
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+
+
+/****/
+
+abbr,
+article,
+aside,
+audio,
+canvas,
+datalist,
+details,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+progress,
+section,
+video {
+    display: block;
+    margin: 0;
+    padding: 0
+}
+
+i,
+u,
+b,
+em,
+span,
+small {
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,
+body {
+    height: 100%
+}
+
+
+/****/
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-user-select: none;
+    user-select: none;
+    -moz-user-focus: none;
+    -moz-user-select: none;
+}
+
+a {
+    text-decoration: none;
+    color: #666;
+}
+
+a:hover {
+    color: #f00;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    word-spacing: -4px;
+}
+
+
+.body_box {
+    width: 100%;
+    height: 100%;
+    background-image: url('../image/back_3.png');
+    background-size: 100% 100%;
+}
+
+.body_box header {
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(1, 216, 254);
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+.body_box header .time_box {
+    flex: 1;
+    color: rgb(104, 182, 255);
+}
+
+.body_box header h1 {
+    flex: 1;
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.body_box header .tab_nav {
+    text-align: end;
+    flex: 1;
+}
+
+.body_box header .tab_nav a {
+    color: #fff;
+    padding: 3px 10px;
+    margin-left: .5rem;
+    background-image: url(../image/tab_btn.png);
+    background-size: 100% 100%;
+}
+
+.body_box header .tab_nav .tab_active {
+    background-image: url(../image/tab_active.png);
+    background-size: 100% 100%;
+}

@@ -1,0 +1,58 @@
+.section {
+  .price {
+    float: left;
+  }
+
+  .line {
+    color: #a3abba;
+    line-height: 35px;
+  }
+
+  .el-form-item__content {
+    max-width: 300px;
+  }
+}
+
+.el-form-index {
+  padding-bottom: 100px;
+  .el-input {
+    max-width: 300px;
+    @extend .price;
+  }
+
+  .el-select {
+    max-width: 300px;
+    width: 100%;
+    @extend .price;
+  }
+  .el-forms {
+    @extend .price;
+    max-width: 300px;
+    width: 100% !important;
+  }
+
+  .el-slider {
+    @extend .price;
+    max-width: 500px;
+    width: 100% !important;
+  }
+
+  .el-button  {
+    @extend .price;
+    margin: {
+      left: 120px;
+      right: 20px;
+      top: 20px;
+    }
+  }
+
+  .el-switch {
+    @extend .price;
+    margin-top: 10px;
+  }
+
+  .el-editor {
+    max-width: 700px;
+    @extend .price;
+  }
+}

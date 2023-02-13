@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.ArchBusiUviewStrExMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.ArchBusiUviewStrEx">
+        <id column="uviewstr_id" property="uviewstrId" />
+        <result column="uview_id" property="uviewId" />
+        <result column="src_field" property="srcField" />
+        <result column="eng_cd" property="engCd" />
+        <result column="src_data_typ" property="srcDataTyp" />
+        <result column="data_len" property="dataLen" />
+        <result column="item_remark" property="itemRemark" />
+        <result column="sno" property="sno" />
+        <result column="ext1" property="ext1" />
+        <result column="ext2" property="ext2" />
+        <result column="ext3" property="ext3" />
+        <result column="ext4" property="ext4" />
+        <result column="ext5" property="ext5" />
+        <result column="create_time" property="createTime" />
+        <result column="ext6" property="ext6" />
+        <result column="ext7" property="ext7" />
+        <result column="ext8" property="ext8" />
+        <result column="ext9" property="ext9" />
+        <result column="ext10" property="ext10" />
+        <result column="ext11" property="ext11" />
+        <result column="ext12" property="ext12" />
+        <result column="ext13" property="ext13" />
+        <result column="ext14" property="ext14" />
+        <result column="ext15" property="ext15" />
+        <result column="ext16" property="ext16" />
+        <result column="ext17" property="ext17" />
+        <result column="ext18" property="ext18" />
+        <result column="ext19" property="ext19" />
+        <result column="ext20" property="ext20" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        uviewstr_id, uview_id, src_field, eng_cd, src_data_typ, data_len, item_remark, sno, ext1, ext2, ext3, ext4, ext5, create_time,ext6,ext7,ext8,ext9,ext10,ext11,ext12,ext13,ext14,ext15,ext16,ext17,ext18,ext19,ext20
+    </sql>
+
+	<select id="getList" resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusiUviewStrEx">
+		select a.* from arch_busi_uview_str_ex a left join arch_busi_uview_ex b on a.uview_id=b.uview_id 
+		where b.deleted=0 
+		<if test="uviewId != null and uviewId != ''">
+			and a.uview_id=#{uviewId}
+		</if>
+		<if test="pubSts != null and pubSts != ''">
+			and b.pub_sts=#{pubSts}
+		</if>
+	</select>
+    <select id="getListByDeptId" resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusiUviewStrEx">
+        select a.* from arch_busi_uview_str_ex a inner join arch_busi_uview_ex b on a.uview_id=b.uview_id
+        where b.prov_org_id=#{deptId} and (b.city_cata_code is null or b.city_cata_code='')
+    </select>
+</mapper>

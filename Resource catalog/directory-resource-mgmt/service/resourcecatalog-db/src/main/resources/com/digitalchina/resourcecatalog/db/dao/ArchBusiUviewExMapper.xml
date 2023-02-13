@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.ArchBusiUviewExMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.ArchBusiUviewEx">
+        <id column="uview_id" property="uviewId"/>
+        <result column="uview_nm" property="uviewNm"/>
+        <result column="uview_no" property="uviewNo"/>
+        <result column="belong_to" property="belongTo"/>
+        <result column="belong_to_code" property="belongToCode"/>
+        <result column="prov_org_id" property="provOrgId"/>
+        <result column="prov_org_code" property="provOrgCode"/>
+        <result column="media_fmt" property="mediaFmt"/>
+        <result column="media_fmt_type" property="mediaFmtType"/>
+        <result column="update_cyc" property="updateCyc"/>
+        <result column="pub_dt" property="pubDt"/>
+        <result column="uview_desc" property="uviewDesc"/>
+        <result column="share_lv" property="shareLv"/>
+        <result column="share_condition" property="shareCondition"/>
+        <result column="pub_sts" property="pubSts"/>
+        <result column="pub_condition" property="pubCondition"/>
+        <result column="version" property="version"/>
+        <result column="audit_status" property="auditStatus"/>
+        <result column="creator" property="creator"/>
+        <result column="crt_dt" property="crtDt"/>
+        <result column="updater" property="updater"/>
+        <result column="update_dt" property="updateDt"/>
+        <result column="deleted" property="deleted"/>
+        <result column="share_scope" property="shareScope"/>
+        <result column="data_scope" property="dataScope"/>
+        <result column="secret" property="secret"/>
+        <result column="rel_busi" property="relBusi"/>
+        <result column="rel_busi_msg" property="relBusiMsg"/>
+        <result column="city_cata_code" property="cityCataCode"/>
+        <result column="last_update_desc" property="lastUpdateDesc"/>
+        <result column="update_limit_readed" property="updateLimitReaded"/>
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        uview_id, uview_nm, uview_no, belong_to, belong_to_code, prov_org_id, prov_org_code, media_fmt, media_fmt_type, update_cyc, pub_dt, uview_desc, share_lv, share_condition, pub_sts, pub_condition, version, audit_status, creator, crt_dt, updater, update_dt,deleted
+    </sql>
+
+    <select id="getNewTop5Info" resultType="java.util.HashMap">
+        SELECT A.status,
+        b.uview_nm "uviewNm",
+        to_char( A.check_time, 'YYYY-MM-DD' ) "checkTime"
+        FROM
+        cata_info_approve
+        A LEFT JOIN arch_busi_uview_ex b ON b.uview_id = A.info_id
+        WHERE
+        A.status = '1'
+        AND A.opt_type='终审'
+        AND A.ID IN (
+        SELECT MAX
+        ( A.ID ) ID
+        FROM
+        cata_info_approve A
+        WHERE
+        A.status = '1'
+        GROUP BY
+        A.info_id
+        )
+        <if test="deptIds!=null and deptIds.size>0">
+            AND ( b.prov_org_id in
+            <foreach collection="deptIds" item="deptId" open="(" separator="," close=")" index="index">
+                #{deptId}
+            </foreach>
+            )
+        </if>
+        ORDER BY
+        A.check_time DESC
+        LIMIT 5 OFFSET 0
+    </select>
+
+	<select id="selectByTypeId" resultType="com.digitalchina.resourcecatalog.db.dto.CataInfoDto">
+		 select a.* from arch_busi_uview_ex a
+        where a.deleted=0
+        <if test="depId != null and depId != ''">
+            and a.prov_org_id =${depId}
+        </if>
+        <if test="typId != null and typId != ''">
+            and a.uview_id in(select DISTINCT info_id from cata_info_temp_type_rel b where b.type_id in(with RECURSIVE r
+            as
+            ( select t1.typ_id from dict_asset_cate t1 where t1.typ_id = #{typId}
+            union all
+            select t2.typ_id from dict_asset_cate t2 inner join r on r.typ_id = t2.par_typ_id)
+            select * from r))
+        </if>
+	</select>
+	
+	<select id="selectForType" resultType="java.util.HashMap">
+		select ROW_NUMBER () OVER (ORDER BY c.full_typ_cd ) number,c.full_typ_cd typCd,c.typ_nm typNm,a.uview_nm uviewNm from asset_cate_ex b
+		left join arch_busi_uview_ex a on b.info_id=a.uview_id and b.type='3'
+		left join dict_asset_cate c on c.typ_id=b.type_id
+		where a.deleted=0 and c.status='1' and a.prov_org_id = #{depId} and c.org_id=#{depId}
+	</select>
+</mapper>

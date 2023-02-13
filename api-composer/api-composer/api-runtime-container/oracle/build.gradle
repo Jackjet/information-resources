@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'd1.project.container.componet'
+version '1.0.1'
+
+repositories {
+    mavenCentral()
+    maven { url 'http://code.z012.com:8081/repository/d1-java/' }
+}
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+dependencies {
+    implementation project(':base')
+    implementation 'oracle:ojdbc:6.0.0'
+}

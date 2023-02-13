@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ico-19</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页修改01" transform="translate(-1166.000000, -1219.000000)">
+            <g id="政务信息资源分类" transform="translate(0.000000, 534.000000)">
+                <g id="card" transform="translate(1075.000000, 653.000000)">
+                    <g id="ico-19" transform="translate(91.000000, 32.000000)">
+                        <circle id="椭圆形备份" fill="#3D3E49" cx="12" cy="12" r="12"></circle>
+                        <circle id="椭圆形" fill="#0080FF" cx="28" cy="28" r="20"></circle>
+                        <circle id="椭圆形" fill="#FFFFFF" cx="18.5" cy="28.5" r="2.5"></circle>
+                        <circle id="椭圆形备份-2" fill="#FFFFFF" cx="28.5" cy="28.5" r="2.5"></circle>
+                        <circle id="椭圆形备份-3" fill="#FFFFFF" cx="38.5" cy="28.5" r="2.5"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

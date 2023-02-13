@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.MqMessageMapper">
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.MqMessage">
+        <id column="id" property="id"/>
+        <result column="message_guid"  property="messageGuid"/>
+        <result column="message" property="message"/>
+        <result column="message_status"  property="messageStatus"/>
+        <result column="message_code" property="messageCode"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, message_guid, message_code, message_status, message, create_time
+    </sql>
+</mapper>

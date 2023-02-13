@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.SysUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.SysUser">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="disabled" property="disabled"/>
+        <result column="email" property="email"/>
+        <result column="type" property="type"/>
+        <result column="last_login_ip" property="lastLoginIp"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="avatar" property="avatar"/>
+        <result column="add_time" property="addTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="deleted" property="deleted"/>
+        <collection property="roles" ofType="com.digitalchina.resourcecatalog.db.domain.SysRole" column="id">
+        	<id column="r_id" property="id" />
+	        <result column="r_name" property="name" />
+	        <result column="r_desc" property="desc" />
+	        <result column="r_enabled" property="enabled" />
+	        <result column="r_add_time" property="addTime" />
+	        <result column="r_update_time" property="updateTime" />
+	        <result column="r_deleted" property="deleted" />
+        </collection>
+        <collection property="orgs" ofType="com.digitalchina.resourcecatalog.db.domain.ArchOrg" column="org_id">
+        	 <id column="o_org_id" property="orgId" />
+	        <result column="o_org_nm" property="orgNm" />
+	        <result column="o_org_cd" property="orgCd" />
+	        <result column="o_org_linkman" property="orgLinkman" />
+	        <result column="o_org_tel" property="orgTel" />
+	        <result column="o_org_fax" property="orgFax" />
+	        <result column="o_org_mail" property="orgMail" />
+	        <result column="o_org_duty" property="orgDuty" />
+	        <result column="o_addr" property="addr" />
+	        <result column="o_creator" property="creator" />
+	        <result column="o_updater" property="updater" />
+	        <result column="o_crt_dt" property="crtDt" />
+	        <result column="o_update_dt" property="updateDt" />
+	        <result column="o_org_alias" property="orgAlias" />
+	        <result column="o_social_credit_cd" property="socialCreditCd" />
+	        <result column="o_dispaly_sn" property="dispalySn" />
+	        <result column="o_par_org_id" property="parOrgId" />
+        </collection>
+    </resultMap>
+
+    <!--    用户分页-->
+    <select id="myPage" resultType="java.util.HashMap">
+        SELECT DISTINCT
+        u."id",
+        u.username,
+        u."name",
+        u.phone,
+        u.email,
+        u.disabled,
+        u."type",
+        u.avatar,
+        u.add_time,
+        uo.org_id AS "orgId",
+        o.org_nm AS orgNm,
+        (
+        SELECT
+        string_agg (
+        TRIM (to_char(rr."id", '9999999')),
+        ','
+        ) AS "roleId"
+        FROM
+        sys_user uu
+        LEFT JOIN sys_user_role_rel urur ON urur.user_id = uu."id"
+        LEFT JOIN sys_role rr ON rr."id" = urur.role_id
+        WHERE
+        u."id" = uu."id"
+        ),
+        (
+        SELECT
+        string_agg (rr."name", ',') AS roleNm
+        FROM
+        sys_user uu
+        LEFT JOIN sys_user_role_rel urur ON urur.user_id = uu."id"
+        LEFT JOIN sys_role rr ON rr."id" = urur.role_id
+        WHERE
+        u."id" = uu."id"
+        )
+        FROM
+        sys_user u
+        LEFT JOIN sys_user_role_rel ur ON ur.user_id = u."id"
+        LEFT JOIN sys_role r ON r."id" = ur.role_id
+        LEFT JOIN sys_user_org_rel uo ON uo.user_id = u."id"
+        LEFT JOIN arch_org o ON o.org_id = uo.org_id
+        WHERE
+        u.deleted = 0
+        <if test="name != null and name != ''">
+            AND ( u.username LIKE CONCAT(CONCAT('%',#{name}),'%') OR u.name LIKE
+            CONCAT(CONCAT('%',#{name}),'%') )
+        </if>
+        <if test="orgId !=null and orgId != ''">
+            AND uo.org_id=#{orgId}
+        </if>
+        <if test="roleId !=null and roleId != ''">
+            AND ur.role_id =#{roleId}
+        </if>
+        ORDER BY u.add_time DESC
+    </select>
+
+
+    <select id="findByIdOrUsername" resultMap="BaseResultMap">
+        SELECT
+        u.*, 
+		r.id as r_id, r.name as r_name, r."desc" as r_desc, r.enabled as r_enabled, r.add_time as r_add_time, r.update_time as r_update_time, r.deleted as r_deleted ,
+        o.org_id as o_org_id, o.org_nm as o_org_nm, o.org_cd as o_org_cd, o.org_linkman as o_org_linkman, o.org_tel as o_org_tel, 
+        o.org_fax as o_org_fax, o.org_mail as o_org_mail, o.org_duty as o_org_duty, o.addr as o_addr, o.creator as o_creator, o.updater as o_updater, 
+        o.crt_dt as o_crt_dt, o.update_dt as o_update_dt, o.org_alias as o_org_alias, o.social_credit_cd as o_social_credit_cd, o.dispaly_sn as o_dispaly_sn, o.par_org_id as o_par_org_id
+        FROM
+        sys_user u
+        LEFT JOIN sys_user_role_rel r1 ON r1.user_id = u.id and u.disabled=0 and u.deleted=0
+        LEFT JOIN sys_role r ON r.id = r1.role_id and r.enabled=1 and r.deleted=0
+        LEFT JOIN sys_user_org_rel r2 ON r2.user_id = u.id
+        LEFT JOIN arch_org o ON o.org_id = r2.org_id
+        where 1=1 
+         <if test="id !=null">
+           AND u.id=#{id}
+        </if>
+        <if test="username !=null and username != ''">
+            AND u.username =#{username}
+        </if>
+    </select>
+</mapper>

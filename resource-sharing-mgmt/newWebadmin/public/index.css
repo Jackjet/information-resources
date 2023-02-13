@@ -1,0 +1,64 @@
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+}
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 800px;
+}
+
+/*
+ *
+ * 朴素按钮字体颜色
+ * 默认为黑色，为与主题一致改成主题色
+ * 与主题色一致
+ * 更改主题色时，需要更改该色值
+ *
+ */
+.el-button.el-button--default {
+  /* color: #00bcd4; */
+}
+
+/*
+ * 搜索框统一样式
+ */
+.el-InputForm {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 4px #c0c4cc;
+}
+.el-InputForm .el-form-item {
+  margin-bottom: 0;
+  padding: 5px 0;
+}
+/*
+ * 侧边栏选中时竖线，样式部分在aside组件里面
+ */
+.el-menu-item.is-active .chooseLine {
+  display: block !important;
+}
+/*
+ * 侧边栏子集高度，配合上面竖线调整
+ */
+.el-submenu .el-menu-item {
+  height: 44px !important;
+  line-height: 44px !important;
+  border-bottom:none;
+}
+/*
+ * 面包屑最后一项颜色
+ */
+.el-breadcrumb__item:last-child span {
+  color: #5a5a5a !important;
+}
+.el-submenu.is-opened .el-submenu__title{
+  border-bottom:none;
+}

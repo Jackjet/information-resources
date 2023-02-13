@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.ArchBusiUviewExExportTmpMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.ArchBusiUviewExExportTmp">
+        <id column="id" property="id"/>
+        <result column="uview_nm" property="uviewNm"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="dept_name" property="deptName"/>
+        <result column="city_cata_code" property="cityCataCode"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uview_nm, dept_id, dept_name, city_cata_code
+    </sql>
+
+    <update id="updateFormal">
+        update arch_busi_uview_ex
+        set city_cata_code = arch_busi_uview_ex_export_tmp.city_cata_code
+            from arch_busi_uview_ex_export_tmp
+        where
+            arch_busi_uview_ex.uview_nm = arch_busi_uview_ex_export_tmp.uview_nm
+
+    </update>
+
+    <update id="updateTmp">
+        update cata_info_temp
+        set city_cata_code = arch_busi_uview_ex_export_tmp.city_cata_code
+            from arch_busi_uview_ex_export_tmp
+        where
+            cata_info_temp.uview_nm = arch_busi_uview_ex_export_tmp.uview_nm
+        </update>
+    <update id="updateHistory">
+        update cata_info_history
+        set city_cata_code = arch_busi_uview_ex_export_tmp.city_cata_code
+            from arch_busi_uview_ex_export_tmp
+        where
+            cata_info_history.uview_nm = arch_busi_uview_ex_export_tmp.uview_nm
+        </update>
+</mapper>

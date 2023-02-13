@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/data_flow.css">
+    <script type="text/javascript" src="./public/echarts.min.js"></script>
+    <script type="text/javascript" src="./public/jquery-3.2.1.js"></script>
+    <title>天津河北区大数据共享平台</title>
+</head>
+
+<body>
+    <div class="body_box">
+        <header>
+            <div class="time_box" id="time_box"></div>
+            <h1>天津河北区大数据共享平台</h1>
+            <nav class="tab_nav">
+                <a href="./panorama.html">全景图</a>
+                <a class="tab_active" href="#">数据流程</a>
+                <a href="./Imputation.html">数据归集</a>
+                <a href="./to_open_up.html">数据共享</a>
+                <!-- <a href="http://lowcode.magicalcoder.com/magicalcoder/index-layui.html">多控件</a> -->
+            </nav>
+        </header>
+        <!-- <div class="access_num">00</div> -->
+        <div class="data_box">
+            <p class="catalogue_num">资源目录数<span id="catalogue_num"></span>条</p>
+            <p class="data_num">信息项数量<span id="data_num"></span>项</p>
+        </div>
+        <div class="data_box_1">
+            <p class="catalogue_num">目录可向社会无条件开放 <span id="null_num"></span>类</p>
+            <!-- <p class="data_num">接入目录<span>2</span>种（登录平台查询方式共享、API接口方式共享）方式。</p> -->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./js/request.js"></script>
+<script>
+    let res = axios_Ajax('/api/dashboard?apiKey=7be5499f37034ef5bdc387f5382cd6be').responseJSON
+    // console.log(res, "=========")
+    if (res.errno === 0) {
+        $('#catalogue_num').text(res.data.infoCataCount)
+        $('#data_num').text(res.data.infoItemCount)
+        $('#null_num').text(res.data.openCataNumNoCond)
+    }
+</script>
+
+</html>

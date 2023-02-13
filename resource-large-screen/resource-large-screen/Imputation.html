@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/Imputation.css">
+    <script type="text/javascript" src="./public/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="./public/jquery-3.2.1.js"></script>
+    <title>天津河北区大数据共享平台</title>
+</head>
+
+<body>
+    <div class="body_box">
+        <header>
+            <div class="time_box" id="time_box"></div>
+            <h1>天津河北区大数据共享平台</h1>
+            <nav class="tab_nav">
+                <a href="./panorama.html">全景图</a>
+                <a href="./data_flow.html">数据流程</a>
+                <a class="tab_active" href="#">数据归集</a>
+                <a href="./to_open_up.html">数据共享</a>
+                <!-- <a href="http://lowcode.magicalcoder.com/magicalcoder/index-layui.html">多控件</a> -->
+            </nav>
+        </header>
+        <content>
+            <div class="left_content">
+                <div class="echarts_bg left_top">
+                    <div class="creditor_department">
+                        <div class="department_icon">
+                            <img src="./image/zhaiquan.png" alt="">
+                        </div>
+                        <h2>职权部门</h2>
+                        <ul id="CreditorSRights"></ul>
+                    </div>
+                    <div id="CreditorSRights_type1" style="border-bottom:1px solid rgb(4, 175, 213) ;"
+                        class="creditor_classification"></div>
+                    <div id="CreditorSRights_type2" class="creditor_classification"></div>
+                </div>
+                <div class="carding_box">
+                    <ul class="carding_data">
+                        <li>
+                            <span id="deptCount"></span>
+                            <img src="./image/carding_icon.png" alt="">
+                            <p>资源梳理部门</p>
+                        </li>
+                        <li>
+                            <span id="infoCataCount"></span>
+                            <img src="./image/carding_icon.png" alt="">
+                            <p>资源目录梳理总数</p>
+                        </li>
+                        <li>
+                            <span id="infoItemCount"></span>
+                            <img src="./image/carding_icon.png" alt="">
+                            <p>梳理信息项</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="echarts_bg">
+                    <h1>资源目录梳理TOP10</h1>
+                    <div class="echarts_style" id="echarts_1"></div>
+                </div>
+            </div>
+            <div class="center_content">
+                <div class="center_top">
+                    <div class="center_left">
+                        <p>归集数据总量</p>
+                        <p>数据<span id="data_num"></span>条</p>
+                        <p>文件<span id="file_num"></span>个</p>
+                        <p>接口<span id="api_num"></span>类</p>
+                    </div>
+                    <div class="center_right">
+                        <p>归集数据部门</p>
+                        <span id="data_department"></span>
+                        <p>数据归集</p>
+                        <span id="data_number"></span>
+                    </div>
+                    <div id="main_diagram"></div>
+                </div>
+                <div class="center_bottom">
+                    <h1>数据归集最多TOP10</h1>
+                    <div class="echarts_style" id="echarts_2"></div>
+                </div>
+            </div>
+            <div class="right_content">
+                <div class="echarts_bg">
+                    <h1>资源目录数与数据提供量提供最完整的TOP10部门</h1>
+                    <div class="echarts_style" id="echarts_3"></div>
+                </div>
+                <div class="echarts_bg">
+                    <h1>数据类型分布</h1>
+                    <div class="echarts_style" id="echarts_4"></div>
+                </div>
+                <div class="echarts_bg">
+                    <h1>数据更新周期</h1>
+                    <div class="echarts_style" id="echarts_5"></div>
+                </div>
+            </div>
+        </content>
+    </div>
+</body>
+<script type="text/javascript" src="./js/request.js"></script>
+<!-- 前置机动态交换图 -->
+<script type="text/javascript" src="./js/Imputation/main_diagram.js"></script>
+<!-- 债权与梳理 -->
+<script type="text/javascript" src="./js/Imputation/CreditorSRights_carding.js"></script>
+<!-- 资源目录梳理提交最多部门TOP10 -->
+<script type="text/javascript" src="./js/Imputation/echarts_1.js"></script>
+<!-- 数据归集最多部门TOP10 -->
+<script type="text/javascript" src="./js/Imputation/echarts_2.js"></script>
+<!-- 资源目录数与数据提供量提供最完整的TOP10部门 -->
+<script type="text/javascript" src="./js/Imputation/echarts_3.js"></script>
+<!-- 数据类型分布 -->
+<script type="text/javascript" src="./js/Imputation/echarts_4.js"></script>
+<!-- 数据类型更新周期占比 -->
+<script type="text/javascript" src="./js/Imputation/echarts_5.js"></script>
+
+</html>

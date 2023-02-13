@@ -1,0 +1,41 @@
+{
+  "name": "webadmin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "build:stage": "vue-cli-service build --mode staging",
+    "dev": "vue-cli-service serve"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "compression-webpack-plugin": "5.0.1",
+    "core-js": "^3.6.5",
+    "crypto-js": "^4.0.0",
+    "js-cookie": "^2.2.1",
+    "js-md5": "^0.7.3",
+    "less": "^4.1.1",
+    "less-loader": "^5.0.0",
+    "nprogress": "^0.2.0",
+    "promise.prototype.finally": "^3.1.2",
+    "vue": "^2.6.11",
+    "vue-drag-verify": "^1.0.6"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "^4.5.9",
+    "@vue/cli-service": "~4.5.0",
+    "babel-polyfill": "^6.26.0",
+    "image-webpack-loader": "^8.1.0",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "vue-cli-plugin-element": "~1.0.1",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

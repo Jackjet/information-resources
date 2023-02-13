@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.DictAssetCateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.DictAssetCate">
+        <id column="typ_id" property="typId" />
+        <result column="typ_nm" property="typNm" />
+        <result column="typ_cd" property="typCd" />
+        <result column="remark" property="remark" />
+        <result column="status" property="status" />
+        <result column="display_sn" property="displaySn" />
+        <result column="full_typ_cd" property="fullTypCd" />
+        <result column="typ_type" property="typType" />
+        <result column="crt_dt" property="crtDt" />
+        <result column="creator" property="creator" />
+        <result column="update_dt" property="updateDt" />
+        <result column="updater" property="updater" />
+        <result column="par_typ_id" property="parTypId" />
+        <result column="org_id" property="orgId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        typ_id, typ_nm, typ_cd, remark, status, display_sn, full_typ_cd, typ_type, crt_dt, creator, update_dt, updater, par_typ_id,org_id
+    </sql>
+
+    <select id="getMaxCodeByPid" resultType="java.lang.Integer">
+        SELECT MAX(CAST (typ_cd AS INTEGER ))
+        FROM dict_asset_cate
+        <choose>
+            <when test="pid !=null">
+                WHERE par_typ_id=#{pid}
+            </when>
+            <otherwise>
+                WHERE par_typ_id is null
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

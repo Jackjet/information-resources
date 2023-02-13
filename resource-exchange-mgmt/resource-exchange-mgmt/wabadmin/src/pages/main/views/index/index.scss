@@ -1,0 +1,70 @@
+.container {
+  position: absolute !important;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  overflow: hidden;
+
+  .main {
+    display: flex;
+    position: absolute;
+    top: 60px;
+    bottom: 0px;
+    width: 100%;
+
+    .class {
+      width: 65px !important;
+      height: 100%;
+
+      .el-menu{
+        height: 100%;
+        border: none !important;
+        text-align: left;
+      }
+    }
+
+    .el-menu-vertical-demo {
+      .Admin {
+        font-size: 22px;
+        margin-right: 10px;
+      }
+
+      .el-icon-arrow-down {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.content-box {
+  .collapse-btn {
+    float: left;
+    margin-right: 30px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #7d7f81;
+    margin-left: 3px;
+    line-height: 55px;
+  }
+
+  .el-scrollbar__bar.is-vertical > div {
+    width: 0 !important;
+  }
+
+  .is-horizontal {
+    height: 0 !important;
+  }
+
+  .el-scrollbar__wrap {
+    overflow-x: hidden;
+
+    .el-scrollbar__view {
+      height: 100%;
+    }
+  }
+}
+
+.item > .is-fixed {
+  position: absolute !important;
+  top:9px !important;
+}

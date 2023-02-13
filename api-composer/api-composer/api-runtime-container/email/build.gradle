@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'd1.project.container.componet'
+version '1.0.1'
+
+repositories {
+    mavenCentral()
+}
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+dependencies {
+    implementation project(':base')
+    implementation 'javax.mail:javax.mail-api:1.6.2'
+    implementation 'com.sun.mail:javax.mail:1.6.2'
+}
+

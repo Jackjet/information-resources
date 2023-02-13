@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.FileUploadRelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.FileUploadRel">
+        <id column="id" property="id"/>
+        <result column="storage_id" property="storageId"/>
+        <result column="subject_id" property="subjectId"/>
+        <result column="status" property="status"/>
+        <result column="file_remark" property="fileRemark"/>
+        <result column="file_name" property="fileName"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="comment" property="comment"/>
+        <result column="user_id" property="userId"/>
+        <result column="dept_id" property="deptId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, storage_id, subject_id, status, file_remark, file_name, update_by, update_time, comment, user_id, dept_id
+    </sql>
+
+    <select id="page" resultType="java.util.HashMap">
+        SELECT
+        u.ID,
+        e.uview_nm AS "uviewNm",
+        u.file_name AS "fileName",
+        split_part(
+        s."name",
+        '.',
+        "length" ( "replace" ( s."name", '.', '..' ) ) - "length" ( s."name" ) + 1
+        ) AS format,
+        o.org_nm AS "orgNm",
+        to_char(s.add_time, 'YYYY-MM-DD HH24:MI:SS') as "addTime",
+        u.status,
+        CASE
+        u.status
+        WHEN '0' THEN
+        '等待审核'
+        WHEN '1' THEN
+        '通过' ELSE'驳回'
+        END AS "statusNm"
+        FROM
+        "file_upload_rel" u
+        LEFT JOIN sys_storage s ON s."id" = u.storage_id
+        LEFT JOIN arch_busi_uview_ex e ON u.subject_id = e.uview_id
+        LEFT JOIN arch_org o ON o.org_id = u.dept_id
+        WHERE
+        s.deleted = 0
+        <if test="name != null and name != ''">
+            and e.uview_nm like CONCAT(CONCAT('%',#{name}),'%')
+        </if>
+        <if test="status != null and status != ''">
+            and u.status=#{status}
+        </if>
+        <if test="startTime !=null and startTime != ''">
+            and s.add_time &gt;=cast(#{startTime} as timestamp)
+        </if>
+        <if test="endTime !=null and endTime !=''">
+            and s.add_time &lt;=cast(#{endTime} as timestamp)
+        </if>
+        <if test="deptId != null">
+            and u.dept_id=#{deptId}
+        </if>
+        <if test="userId != null">
+            and u.user_id=#{userId}
+        </if>
+        ORDER BY
+        s.add_time DESC
+    </select>
+
+    <select id="detail" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT
+            u.ID,
+            e.uview_nm AS "uviewNm",
+            u.subject_id as "uviewId",
+            s."name",
+            s.url,
+            u.file_name AS "fileName",
+            u.file_remark AS "fileRemark",
+            to_char( s.add_time, 'YYYY-MM-DD HH24:MI:SS' ) AS "addTime",
+            u.update_by AS updateBy,
+            to_char( u.update_time, 'YYYY-MM-DD HH24:MI:SS' ) AS updateTime,
+            o.org_nm AS "orgNm",
+            u.status,
+            u.storage_id AS "storageId",
+        CASE
+                u.status
+                WHEN '0' THEN
+                '等待审核'
+                WHEN '1' THEN
+                '通过' ELSE'驳回'
+            END AS "statusNm",
+            u."comment",
+            u.dept_id "deptId"
+        FROM
+            "file_upload_rel" u
+            LEFT JOIN sys_storage s ON s."id" = u.storage_id
+            LEFT JOIN arch_busi_uview_ex e ON u.subject_id = e.uview_id
+            LEFT JOIN arch_org o ON o.org_id = u.dept_id
+        where u.id=#{id}
+    </select>
+
+    <select id="waitReviewFileList" resultType="java.util.HashMap" parameterType="java.lang.String">
+        SELECT
+        r."id",
+        r.file_name "fileName",
+        o.org_nm "orgNm",
+        to_char( s.add_time, 'YYYY-MM-DD HH24:MI:SS' ) AS "addTime",
+        to_char( r.update_time, 'YYYY-MM-DD HH24:MI:SS' ) AS "updateTime",
+        r.status
+        FROM
+        file_upload_rel r
+        LEFT JOIN arch_org o ON o.org_id = r.dept_id
+        LEFT JOIN sys_storage s ON s."id" = r.storage_id
+        <choose>
+            <when test="status != null and status != ''">
+                where r.status=#{status} order by s.add_time desc
+            </when>
+            <otherwise>
+                where r.status !='0' order by r.update_time desc
+            </otherwise>
+        </choose>
+        LIMIT 5
+    </select>
+
+</mapper>

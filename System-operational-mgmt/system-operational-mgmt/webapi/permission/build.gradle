@@ -1,0 +1,19 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+version = '1.0.0'
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
+    maven { url 'http://code.z012.com:8081/repository/d1-java/' }//我们的私有maven库
+    mavenCentral()
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-jpa:2.0.4.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-web:2.0.4.RELEASE')
+    compile('d1.framework:webapi:2.2.4')//基础封装库，必须依赖,最新版本号参考http://code.z012.com:8888/java-packages/d1.framework.webapi
+    //compile('d1.framework:util:latest.integration')
+}

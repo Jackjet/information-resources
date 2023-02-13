@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.DesensitizationRuleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.DesensitizationRule">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="behind" property="behind" />
+        <result column="head" property="head" />
+        <result column="letter" property="letter" />
+        <result column="regular" property="regular" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="deleted" property="deleted" />
+        <result column="item_id" property="itemId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, type, behind, head, letter, regular, create_by, create_time, update_by, update_time, deleted, item_id
+    </sql>
+    <select id="selectByExid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	    select 
+	    *
+	    from desensitization_rule
+	    where item_id = #{itemId} and deleted = 0
+	</select>
+    <insert id="insertSelective" parameterType="com.digitalchina.resourcecatalog.db.domain.DesensitizationRule" useGeneratedKeys="true" keyProperty="id">
+	    insert into desensitization_rule
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="id != null">
+	        id,
+	      </if>
+	      <if test="type != null">
+	        type,
+	      </if>
+	      <if test="behind != null">
+	        behind,
+	      </if>
+	      <if test="head != null">
+	        head,
+	      </if>
+	      <if test="letter != null">
+	        letter,
+	      </if>
+	      <if test="regular != null">
+	        regular,
+	      </if>
+	      <if test="createBy != null">
+	        create_by,
+	      </if>
+	      <if test="createTime != null">
+	        create_time,
+	      </if>
+	      <if test="updateBy != null">
+	        update_by,
+	      </if>
+	      <if test="updateTime != null">
+	        update_time,
+	      </if>
+	      <if test="deleted != null">
+	        deleted,
+	      </if>
+	      <if test="itemId != null">
+	        item_id,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="id != null">
+	        #{id},
+	      </if>
+	      <if test="type != null">
+	        #{type},
+	      </if>
+	      <if test="behind != null">
+	        #{behind},
+	      </if>
+	      <if test="head != null">
+	        #{head},
+	      </if>
+	      <if test="letter != null">
+	        #{letter},
+	      </if>
+	      <if test="regular != null">
+	        #{regular},
+	      </if>
+	      <if test="createBy != null">
+	        #{createBy},
+	      </if>
+	      <if test="createTime != null">
+	        #{createTime},
+	      </if>
+	      <if test="updateBy != null">
+	        #{updateBy},
+	      </if>
+	      <if test="updateTime != null">
+	        #{updateTime},
+	      </if>
+	      <if test="deleted != null">
+	        #{deleted},
+	      </if>
+	      <if test="itemId != null">
+	        #{itemId},
+	      </if>
+	    </trim>
+	  </insert>
+	  <update id="updateSelective" parameterType="com.digitalchina.resourcecatalog.db.domain.DesensitizationRule">
+	    update desensitization_rule
+	    <set>
+	      <if test="type != null">
+	        type = #{type},
+	      </if>
+	      <if test="behind != null">
+	        behind = #{behind},
+	      </if>
+	      <if test="head != null">
+	        head = #{head},
+	      </if>
+	      <if test="letter != null">
+	        letter = #{letter},
+	      </if>
+	      <if test="regular != null">
+	        regular = #{regular},
+	      </if>
+	      <if test="createBy != null">
+	        create_by = #{createBy},
+	      </if>
+	      <if test="createTime != null">
+	        create_time = #{createTime},
+	      </if>
+	      <if test="updateBy != null">
+	        update_by = #{updateBy},
+	      </if>
+	      <if test="updateTime != null">
+	        update_time = #{updateTime},
+	      </if>
+	      <if test="deleted != null">
+	        deleted = #{deleted},
+	      </if>
+	      <if test="itemId != null">
+	        item_id = #{itemId},
+	      </if>
+	    </set>
+	    where id = #{id}
+	  </update>
+
+</mapper>

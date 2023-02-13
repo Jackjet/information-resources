@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ico-15</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页修改01" transform="translate(-1396.000000, -1069.000000)" fill-rule="nonzero">
+            <g id="政务信息资源分类" transform="translate(0.000000, 534.000000)">
+                <g id="card" transform="translate(1305.000000, 503.000000)">
+                    <g id="ico-15" transform="translate(91.000000, 32.000000)">
+                        <polygon id="路径" fill="#0080FF" points="4.8 0 33.6 0 33.6 40.4210526 4.8 40.4210526"></polygon>
+                        <polygon id="路径" fill="#3D3E49" points="33.6 7.57894737 43.2 7.57894737 43.2 40.4210526 33.6 40.4210526"></polygon>
+                        <path d="M12,7.57894737 L16.8,7.57894737 L16.8,32.8421053 L12,32.8421053 L12,7.57894737 Z M21.6,7.57894737 L26.4,7.57894737 L26.4,22.7368421 L21.6,22.7368421 L21.6,7.57894737 Z" id="形状" fill="#FFFFFF"></path>
+                        <polygon id="路径" fill="#3D3E49" points="0 40.4210526 48 40.4210526 48 48 0 48"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

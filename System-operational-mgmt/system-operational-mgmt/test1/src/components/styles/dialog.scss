@@ -1,0 +1,138 @@
+$avatar: avatar;
+$formWidth: 80%;
+$maxWidth: 300px;
+$width: 100%;
+
+.abow_dialog {
+  overflow: auto !important;
+  .#{$avatar}-uploade {
+    float: left;
+  }
+
+  .el-forms {
+    width: $formWidth !important;
+    @extend .#{$avatar}-uploade;
+    max-width: $maxWidth;
+  }
+
+  .el-slider {
+    width: $formWidth !important;
+    @extend .#{$avatar}-uploade;
+  }
+
+  .#{$avatar}-uploader{
+    @extend .#{$avatar}-uploade;
+    margin-bottom: -15px;
+  }
+
+  .#{$avatar}-uploaders {
+    @extend .#{$avatar}-uploade;
+    .el-upload {
+      border: 1px dashed #F56C6C !important;
+      border-radius: 5px;
+    }
+  }
+
+  .el-upload {
+    position: relative;
+  }
+
+  .s-uploading {
+    @extend .el-upload;
+    position: relative;
+  }
+
+  .uploadl  {
+    text-align: left !important;
+  }
+
+  .hide .el-upload--picture-card {
+    display: none;
+  }
+
+  .uploadi {
+    .el-progress {
+      position: absolute;
+      left: 15%;
+      top: 0;
+      z-index: 99;
+      background: white;
+    }
+  }
+
+  .#{$avatar} {
+    z-index: 99;
+  }
+
+  .drak {
+    background: #f3f5f9;
+    position: absolute;
+    width: $width;
+    height: $width;
+    left: 0;
+    top: 0;
+    border-radius: 5px;
+    z-index: -1;
+  }
+
+  .el-editor {
+    width: 90%;
+    @extend .#{$avatar}-uploade;
+    margin-bottom: 0 !important;
+  }
+
+  .el-htmls{
+    border: 1px solid #DCDFE6;
+    width: 85%;
+    min-height: 200px;
+    border-radius: 5px;
+    padding: 2%;
+    background: #f5f7fa;
+    cursor: not-allowed;
+    text-align: start;
+    overflow-x: auto;
+  }
+
+  .el-switch {
+    margin-top: 10px;
+    @extend .#{$avatar}-uploade;
+  }
+
+  .uploaddelete {
+    position: absolute;
+    bottom: 0;
+    width: $width;
+    text-align: center;
+    background: rgba(249, 90, 90, 0.694);
+    height: 28px;
+    line-height: 28px;
+    border-radius: 0 0 5px 5px;
+    z-index: 99;
+    i {
+      color: white;
+      font-size: 16px;
+    }
+  }
+}
+
+.el-drawer {
+  .el-input {
+    max-width: $maxWidth;
+  }
+  .line {
+    text-align: center;
+  }
+  .el-forms {
+    max-width: $maxWidth !important;
+    width: $width !important;
+  }
+  .el-date-editor  {
+    width: $formWidth !important;
+  }
+  .drawer_footer{
+    text-align: center;
+  }
+}
+:focus {
+  outline:0;
+}

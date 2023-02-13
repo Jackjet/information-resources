@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.CataExportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.CataExport">
+        <id column="id" property="id" />
+        <result column="file_key" property="fileKey" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="deleted" property="deleted" />
+        <result column="dep_id" property="depId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, file_key, create_by, create_time, deleted, dep_id
+    </sql>
+
+    <select id="selectPages" resultType="com.digitalchina.resourcecatalog.db.domain.CataExport">
+        select a.*,b."name" as fileName from cata_export a left join sys_storage b on a.file_key = b."key"
+        where a.deleted = 0 and a.dep_id = #{depId}
+        <if test="startDate != null and startDate != ''">
+            and to_char(create_time,'yyyy-mm-dd') >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and to_char(create_time,'yyyy-mm-dd')  &lt;= #{endDate}
+        </if>
+        order by a.create_time desc
+    </select>
+
+    <select id="getCataItemExportList" resultType="java.util.Map">
+select t.uview_id "UVIEW_ID",t.uviewstr_id "UVIEWSTR_ID",t.uview_no "UVIEW_NO",t.uview_nm "UVIEW_NM", t.belong_to "BELONG_TO"
+,t.uview_desc "UVIEW_DESC",t.type_id "TYPE_ID"
+,mf."name" "MF_NAME",mft."name" "MFT_NAME",t.src_field "SRC_FIELD",dt."name" "DT_NAME"
+,t.data_len "DATA_LEN",sl."name" "SL_NAME",t.share_condition "SHARE_CONDITION",ps."name" "PS_NAME"
+,t.pub_condition "PUB_CONDITION",uc."name" "UC_NAME",to_char(t.pub_dt,'yyyy-mm-dd') "PUB_DT"
+from (
+select i.src_field,i.src_data_typ,i.data_len,i.uviewstr_id,ct.type_id
+,c.uview_id,c.uview_nm,c.uview_no,c.belong_to,c.prov_org_id,c.media_fmt,c.media_fmt_type
+,c.update_cyc,c.pub_dt,c.uview_desc,c.share_lv,c.share_condition,c.pub_sts,c.pub_condition
+from cata_info_temp c   left join cata_info_item_temp_rel i on i.uview_id = c.uview_id
+left join cata_info_temp_type_rel ct on ct.info_id = c.uview_id and ct."type"='3'
+where  c.prov_org_id = #{depId} and c.deleted = 0
+) t
+left join sys_dict mf on mf."value" = t.media_fmt and mf."type"='format_type'
+left join sys_dict mft on mft."value" = t.media_fmt_type and mft.pid = mf."id"
+left join sys_dict dt on dt."value" = t.src_data_typ and dt."type"='data_type'
+left join sys_dict sl on sl."value" = t.share_lv and sl."type"='share_type'
+left join sys_dict ps on ps."value" = t.pub_sts and ps."type"='is_open'
+left join sys_dict uc on uc."value" = t.update_cyc and uc."type"='update_cycle'
+order by t.prov_org_id,t.uview_id,t.uviewstr_id
+    </select>
+
+    <select id="getCataRequireExportList" resultType="java.util.Map">
+select cr.name "REQUIRE_NAME",cr.remark "REMARK",cr.purpose "PURPOSE",dep.org_nm "DEP_NAME",
+       org.org_nm "ORG_NAME",sw."name" "ACCESS_WAY",uc."name" "UPDATE_CYC",
+case when cr.is_access = '0' then '是'
+     when cr.is_access = '1' then '否'
+		 else '' end "IS_ACCESS"
+from cata_require cr
+left join arch_org dep on dep.org_id=cr.prov_org_id
+left join arch_org org on org.org_id=cr.belong_to
+left join sys_dict sw on sw."value" = cr.access_way and sw."type"='share_way'
+left join sys_dict uc on uc."value" = cr.use_frequency and uc."type"='update_cycle'
+where cr.dept_id = #{depId} and cr.deleted = 0
+order by cr.create_time desc
+    </select>
+
+    <select id="getAppSysExportList" resultType="java.util.Map">
+select org.org_nm "ORG_NAME",a.appsys_nm "APPSYS_NAME",a.appsys_no "APPSYS_NO",a.appsys_desc "APPSYS_DESC",
+bn."name" "BUILD_NATURE",dl."name" "DEPLOY_LOCATION",nt."name" "NETWORK_TYPE",a.remark "REMARK",a.appsys_id "APPSYS_ID"
+from arch_app_sys a
+left join arch_org org on org.org_id=a.belong_to
+left join sys_dict bn on bn."value" = a.nature and bn."type"='build_nature'
+left join sys_dict dl on dl."value" = a."position" and dl."type"='deploy_location'
+left join sys_dict nt on nt."value" = a.net_type and nt."type"='network_type'
+where a.prov_org_id = #{depId}
+    </select>
+
+    <select id="getCataListByAppId" resultType="java.lang.String">
+select uview_nm from cata_info_temp ci where ci.uview_id in (
+select info_id from cata_bus_info_rel bi where bi."type"=0 and bi.bus_id in (
+select item_id from cata_app_bus_rel where app_id = #{appId}
+)
+)
+    </select>
+
+    <select id="getTypeListByInfoId" resultType="java.lang.String">
+select typ_nm from dict_asset_cate where typ_id in (
+select type_id from cata_info_temp_type_rel where info_id = #{infoId} and (type = '1' or type = '2')
+)
+    </select>
+
+</mapper>

@@ -1,0 +1,93 @@
+$proto: max-width;
+$value: 550px;
+
+@media screen and ($proto: $value) {
+  .daterange  {
+    width: 100% !important;
+    max-width: 220px;
+  }
+}
+
+.el_tab_alage {
+  width: 99.5% !important;
+  border:1px solid #f0f0f0 !important;
+  border-bottom: none !important;
+  margin: {
+    left: 0 !important;
+    bottom: 20px !important;
+    top: 10px !important;
+  }
+  
+  .el-table__header {
+    width: 100% !important;
+  }
+
+  .el-table__empty-block {
+    width: 100% !important;
+  }
+
+  .el-table__row {
+    .cell {
+      -webkit-line-clamp: 3 !important;
+      -webkit-box-orient: vertical !important;
+    }
+    .el-button {
+      margin: {
+        top: 0 !important;
+        right: 10px !important;
+        bottom:0 !important;
+        left: 0 !important;
+      }
+    }
+  }
+}
+
+.demo-table-expand {
+  font-size: 0;
+}
+
+.demo-table-expand label {
+  width: 90px !important;
+  color: #99a9bf !important;
+}
+
+.demo-table-expand .el-form-item {
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  width: 50%;
+}
+
+.el-table--scrollable-x .el-table__body-wrapper::-webkit-scrollbar {
+  overflow-x: hidden;
+}
+
+.el-table .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(169, 178, 196, 0.3) !important;
+}
+
+.el-table__fixed-right {
+  height: calc(100% - 27px) !important;
+}
+
+.price {
+  float: left;
+}
+
+.line {
+  color: #a3abba;
+  line-height: 35px;
+}
+
+.el-loading-mask {
+  bottom: 1px !important;
+}
+
+.pagination {
+  float: right;
+  padding: 1% 2% 4% 0px;
+}
+
+.time {
+  @extend .price;
+  width: 100% !important;
+}

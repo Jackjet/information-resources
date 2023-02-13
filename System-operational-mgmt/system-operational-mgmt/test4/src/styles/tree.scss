@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB",
+  "WenQuanYi Micro Hei","Microsoft Yahei",sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden
+}
+
+
+$treeWidth: 240px;
+
+.app-container{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .left{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 240px;
+    left: 15px;
+    top: 20px;
+    bottom: 15px;
+  }
+  .right{
+    margin-left: 250px
+  }
+}
+
+.disabled-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+  not supported by any browser */
+}

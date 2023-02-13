@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.CataInfoTempMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.CataInfoTemp">
+        <id column="uview_id" property="uviewId"/>
+        <result column="uview_nm" property="uviewNm"/>
+        <result column="uview_no" property="uviewNo"/>
+        <result column="belong_to" property="belongTo"/>
+        <result column="belong_to_code" property="belongToCode"/>
+        <result column="prov_org_id" property="provOrgId"/>
+        <result column="prov_org_code" property="provOrgCode"/>
+        <result column="media_fmt" property="mediaFmt"/>
+        <result column="media_fmt_type" property="mediaFmtType"/>
+        <result column="update_cyc" property="updateCyc"/>
+        <result column="pub_dt" property="pubDt"/>
+        <result column="uview_desc" property="uviewDesc"/>
+        <result column="share_lv" property="shareLv"/>
+        <result column="share_condition" property="shareCondition"/>
+        <result column="pub_sts" property="pubSts"/>
+        <result column="pub_condition" property="pubCondition"/>
+        <result column="version" property="version"/>
+        <result column="audit_status" property="auditStatus"/>
+        <result column="creator" property="creator"/>
+        <result column="crt_dt" property="crtDt"/>
+        <result column="updater" property="updater"/>
+        <result column="update_dt" property="updateDt"/>
+        <result column="share_scope" property="shareScope"/>
+        <result column="data_scope" property="dataScope"/>
+        <result column="secret" property="secret"/>
+        <result column="rel_busi" property="relBusi"/>
+        <result column="rel_busi_msg" property="relBusiMsg"/>
+        <result column="city_cata_code" property="cityCataCode"/>
+        <result column="last_update_desc" property="lastUpdateDesc"/>
+        <result column="update_limit_readed" property="updateLimitReaded"/>
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        uview_id, uview_nm, uview_no, belong_to, belong_to_code, prov_org_id, prov_org_code, media_fmt, media_fmt_type, update_cyc, pub_dt, uview_desc, share_lv, share_condition, pub_sts, pub_condition, version, audit_status, creator, crt_dt, updater, update_dt
+    </sql>
+
+    <select id="selectPages" resultType="com.digitalchina.resourcecatalog.db.domain.CataInfoTemp">
+        select a.*,c.org_nm provOrgName from cata_info_temp a
+        left join arch_org c on c.org_id=a.prov_org_id
+        where a.deleted=0
+        <if test="provOrgId != null and provOrgId != ''">
+            and a.prov_org_id in(${provOrgId})
+        </if>
+        <if test="typeId != null and typeId != ''">
+            and a.uview_id in(select DISTINCT info_id from cata_info_temp_type_rel b where b.type_id in(with RECURSIVE r
+            as
+            ( select t1.typ_id from dict_asset_cate t1 where t1.typ_id = #{typeId}
+            union all
+            select t2.typ_id from dict_asset_cate t2 inner join r on r.typ_id = t2.par_typ_id)
+            select * from r))
+        </if>
+        <if test="uviewNo != null and uviewNo != ''">
+            and a.uview_no like CONCAT(CONCAT('%',#{uviewNo}),'%')
+        </if>
+        <if test="uviewNm != null and uviewNm != ''">
+            and a.uview_nm like CONCAT(CONCAT('%',#{uviewNm}),'%')
+        </if>
+        <if test="auditStatus != null and auditStatus != ''">
+            and a.audit_status =#{auditStatus}
+        </if>
+        <if test="shareLv != null and shareLv != ''">
+            and a.share_lv =#{shareLv}
+        </if>
+        <if test="cityCataCode != null and cityCataCode != ''">
+            and a.city_cata_code =#{cityCataCode}
+        </if>
+        <if test="pubSts != null and pubSts != ''">
+            and a.pub_sts =#{pubSts}
+        </if>
+        order by a.crt_dt desc
+    </select>
+
+    <select id="waitReviewInfoList" resultType="java.util.HashMap">
+        SELECT T
+            .uview_id "uviewId",
+            T.uview_nm "uviewNm",
+            to_char( T.crt_dt, 'YYYY-MM-DD' ) AS "crtDt",
+            o.org_nm "orgNm"
+        FROM
+            cata_info_temp
+            T LEFT JOIN arch_org o ON o.org_id = T.prov_org_id
+        WHERE
+            T.audit_status = '1'
+            AND T.deleted = 0
+        ORDER BY
+            T.crt_dt DESC
+            LIMIT 5
+    </select>
+    <select id="queryUpdateLimitPages" resultType="com.digitalchina.resourcecatalog.db.domain.CataInfoTemp">
+        select a.*,c.org_nm provOrgName from
+        (
+        select * from cata_info_temp where update_cyc = '02' and deleted = 0 and update_dt &lt; #{dayLimit}
+        UNION  select * from cata_info_temp where update_cyc = '03' and deleted = 0 and update_dt &lt; #{weekLimit}
+        UNION  select * from cata_info_temp where update_cyc = '04' and deleted = 0 and update_dt &lt; #{monthLimit}
+        UNION  select * from cata_info_temp where update_cyc = '05' and deleted = 0 and update_dt &lt; #{quarterLimit}
+        UNION  select * from cata_info_temp where update_cyc = '06' and deleted = 0 and update_dt &lt; #{halfYearLimit}
+        UNION  select * from cata_info_temp where update_cyc = '07' and deleted = 0 and update_dt &lt; #{yearLimit}
+        ) as a
+        left join arch_org c on c.org_id=a.prov_org_id
+        where a.audit_status = '5'
+        <if test="orgId != null and orgId != ''">
+            and a.prov_org_id =#{orgId}
+        </if>
+        <if test="uviewNo != null and uviewNo != ''">
+            and a.uview_no like CONCAT(CONCAT('%',#{uviewNo}),'%')
+        </if>
+        <if test="uviewNm != null and uviewNm != ''">
+            and a.uview_nm like CONCAT(CONCAT('%',#{uviewNm}),'%')
+        </if>
+        <if test="updateCyc != null and updateCyc != ''">
+            and a.update_cyc = #{updateCyc}
+        </if>
+    </select>
+    <update id="updateRelBusi">
+        update cata_info_temp set rel_busi = #{newValue} , rel_busi_msg=#{newMsg}
+        where uview_id in
+        <foreach item="item" index="index" collection="infoIds" open="(" separator="," close=")">
+           #{item}
+        </foreach>
+    </update>
+    <update id="updateLimitReadedStatus">
+        update cata_info_temp set update_limit_readed = 1
+        where uview_id =#{infoId}
+    </update>
+    <update id="updateLimitReadedStatusAll">
+        update cata_info_temp set update_limit_readed = 1
+        where uview_id in(
+            select a.uview_id from
+            (
+            select * from cata_info_temp where update_cyc = '02' and deleted = 0 and update_dt &lt; #{dayLimit}
+            UNION  select * from cata_info_temp where update_cyc = '03' and deleted = 0 and update_dt &lt; #{weekLimit}
+            UNION  select * from cata_info_temp where update_cyc = '04' and deleted = 0 and update_dt &lt; #{monthLimit}
+            UNION  select * from cata_info_temp where update_cyc = '05' and deleted = 0 and update_dt &lt; #{quarterLimit}
+            UNION  select * from cata_info_temp where update_cyc = '06' and deleted = 0 and update_dt &lt; #{halfYearLimit}
+            UNION  select * from cata_info_temp where update_cyc = '07' and deleted = 0 and update_dt &lt; #{yearLimit}
+            ) as a
+            where a.audit_status = '5'
+            <if test="orgId != null and orgId != ''">
+                and a.prov_org_id =#{orgId}
+            </if>
+            <if test="uviewNo != null and uviewNo != ''">
+                and a.uview_no like CONCAT(CONCAT('%',#{uviewNo}),'%')
+            </if>
+            <if test="uviewNm != null and uviewNm != ''">
+                and a.uview_nm like CONCAT(CONCAT('%',#{uviewNm}),'%')
+            </if>
+            <if test="updateCyc != null and updateCyc != ''">
+                and a.update_cyc = #{updateCyc}
+            </if>
+        )
+    </update>
+</mapper>

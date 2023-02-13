@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/to_open_up.css">
+    <script type="text/javascript" src="./public/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="./public/echarts-wordcloud-master/dist/echarts-wordcloud.min.js"></script>
+    <script type="text/javascript" src="./public/jquery-3.2.1.js"></script>
+    <title>天津河北区大数据共享平台</title>
+</head>
+
+<body>
+    <div class="body_box">
+        <header>
+            <div class="time_box" id="time_box"></div>
+            <h1>天津河北区大数据共享平台</h1>
+            <nav class="tab_nav">
+                <a href="./panorama.html">全景图</a>
+                <a href="./data_flow.html">数据流程</a>
+                <a href="./Imputation.html">数据归集</a>
+                <a class="tab_active" href="#">数据共享</a>
+                <!-- <a href="http://lowcode.magicalcoder.com/magicalcoder/index-layui.html">多控件</a> -->
+            </nav>
+        </header>
+        <content>
+            <div class="left_content">
+                <div class="echarts_bg">
+                    <h1>累计使用数据情况</h1>
+                    <div class="echarts_style">
+                        <ul class="cumulative">
+                            <li>
+                                <span id="dataPushCount"></span>
+                                <img src="./image/carding_icon.png" alt="">
+                                <p>数据库推送</p>
+                            </li>
+                            <li>
+                                <span id="fileDownCount"></span>
+                                <img src="./image/carding_icon.png" alt="">
+                                <p>文件下载</p>
+                            </li>
+                            <li>
+                                <span id="apiUseCount"></span>
+                                <img src="./image/carding_icon.png" alt="">
+                                <p>API接口调用</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="echarts_bg">
+                    <h1>当月服务调用量</h1>
+                    <div class="echarts_style" id="echarts_1"></div>
+                </div>
+                <div class="echarts_bg">
+                    <h1>部门使用数据排名TOP10</h1>
+                    <div class="echarts_style" id="echarts_2"></div>
+                </div>
+            </div>
+            <div class="center_content">
+                <div class="center_top">
+                    <div class="center_text">
+                        <div class="text_num">
+                            <p>供给部门</p>
+                            <h2 id="provide_num"></h2>
+                        </div>
+
+                        <div class="text_bg">
+                            <img src="./image/jiantou.png" alt="">
+                        </div>
+
+                        <div class="text_num">
+                            <p>大数据中心</p>
+                            <!-- <img src="./image/data_center.png" alt=""> -->
+                            <h2 id="proportion"></h2>
+                        </div>
+
+                        <div class="text_bg">
+                            <img src="./image/jiantou.png" alt="">
+                        </div>
+
+                        <div class="text_num">
+                            <p>需求部门</p>
+                            <h2 id="demand_num"></h2>
+
+                        </div>
+                    </div>
+                    <div class="echarts_style" id="provide_demand"></div>
+                </div>
+                <div class="center_bottom">
+                    <h1>关键词检索频度</h1>
+                    <div class="echarts_style" id="echarts_3"></div>
+                </div>
+            </div>
+            <div class="right_content">
+                <div class="echarts_bg">
+                    <h1>部门积极度排名</h1>
+                    <div class="echarts_style" id="echarts_4"></div>
+                </div>
+                <div class="echarts_bg">
+                    <h1>支持业务</h1>
+                    <div class="echarts_style">
+                        <ul class="business_list"></ul>
+                    </div>
+                </div>
+                <div class="echarts_bg">
+                    <h1>信息资源共享开放度</h1>
+                    <div class="echarts_style" id="echarts_6"></div>
+                </div>
+            </div>
+        </content>
+    </div>
+</body>
+<script type="text/javascript" src="./js/request.js"></script>
+<!-- 累计使用数据情况 -->
+<script type="text/javascript" src="./js/to_open_up/cumulative.js"></script>
+<!-- 当月服务调用量 -->
+<script type="text/javascript" src="./js/to_open_up/echarts_1.js"></script>
+<!-- 部门使用数据排名TOP10 -->
+<script type="text/javascript" src="./js/to_open_up/echarts_2.js"></script>
+<!-- 关键词检索频度 -->
+<script type="text/javascript" src="./js/to_open_up/echarts_3.js"></script>
+<!-- 部门积极度排名 -->
+<script type="text/javascript" src="./js/to_open_up/echarts_4.js"></script>
+<!-- 支持业务 -->
+<script type="text/javascript" src="./js/to_open_up/support_business.js"></script>
+<!-- 信息资源开放共享度 -->
+<script type="text/javascript" src="./js/to_open_up/echarts_6.js"></script>
+<!-- 数据提供部门与需求部门 -->
+<script type="text/javascript" src="./js/to_open_up/provide_demand.js"></script>
+
+</html>

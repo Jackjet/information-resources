@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="组_61" data-name="组 61" transform="translate(-1711 -399)">
+    <g id="椭圆_26" data-name="椭圆 26" transform="translate(1711 399)" fill="none" stroke="#5abd8c" stroke-width="2">
+      <circle cx="15" cy="15" r="15" stroke="none"/>
+      <circle cx="15" cy="15" r="14" fill="none"/>
+    </g>
+    <g id="多边形_10" data-name="多边形 10" transform="translate(1735.5 405.5) rotate(90)" fill="#fff">
+      <path d="M 16.16833114624023 13 L 1.831668615341187 13 L 9 1.849262237548828 L 16.16833114624023 13 Z" stroke="none"/>
+      <path d="M 9 3.698524475097656 L 3.663336753845215 12 L 14.33666229248047 12 L 9 3.698524475097656 M 9 0 L 18 14 L 0 14 L 9 0 Z" stroke="none" fill="#5abd8c"/>
+    </g>
+  </g>
+</svg>

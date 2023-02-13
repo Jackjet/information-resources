@@ -1,0 +1,8 @@
+rootProject.name = 'dcrun-tj'
+include 'common'
+include 'misc'
+include 'emq'
+include 'dcapi'
+include 'basesys'
+include 'datacache'
+

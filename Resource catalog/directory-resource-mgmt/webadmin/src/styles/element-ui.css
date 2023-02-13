@@ -1,0 +1,316 @@
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+}
+.el-upload input[type="file"] {
+  display: none !important;
+}
+.el-upload__input {
+  display: none;
+}
+.cell .el-tag {
+  margin-right: 0px;
+}
+.small-padding .cell {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.fixed-width .el-button--mini {
+  padding: 7px 10px;
+  width: 60px;
+}
+.status-col .cell {
+  padding: 0 10px;
+  text-align: center;
+}
+.status-col .cell .el-tag {
+  margin-right: 0px;
+}
+.el-dialog {
+  transform: none;
+  left: 0;
+  position: relative;
+  margin: 0 auto;
+}
+.upload-container .el-upload {
+  width: 100%;
+}
+.upload-container .el-upload .el-upload-dragger {
+  width: 100%;
+  height: 200px;
+}
+.el-dropdown-menu a {
+  display: block;
+}
+.el-range-editor.el-input__inner {
+  display: inline-flex !important;
+}
+.el-range-separator {
+  box-sizing: content-box;
+}
+.el-pagination {
+  text-align: center;
+}
+.el-tree {
+  color: #242424;
+  background: transparent;
+  min-width: 100%;
+  display: inline-block !important;
+}
+.scrollbar_device .el-scrollbar__thumb {
+  background-color: #cbcbcb;
+}
+.scrollbar_device .el-scrollbar__wrap {
+  min-height: 750px;
+}
+.department_content {
+  min-height: 750px;
+}
+.tree_content_parent {
+  height: auto;
+}
+.tree_content {
+  padding-bottom: 12px !important;
+  min-height: 750px;
+}
+.tab_area {
+  min-height: 750px;
+  overflow: auto;
+}
+.scrollbar_device {
+  height: 100%;
+}
+.scrollbar_device .el-scrollbar {
+  height: 100%;
+}
+.scrollbar_device .el-scrollbar__wrap {
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+}
+.scrollbar_device .el-scrollbar__bar.is-horizontal {
+  height: 4px;
+}
+.scrollbar_device .el-scrollbar__bar.is-vertical {
+  width: 4px;
+  right: 0;
+}
+.el-tree-node > .el-tree-node__children {
+  overflow: visible;
+}
+.el-icon-caret-right:before {
+  font-size: 18px;
+}
+.el-tree-node__expand-icon {
+  color: #707070;
+}
+.el-tree-node.is-current > .el-tree-node__content {
+  color: #e65555;
+  font-weight: 400;
+  font-family: Microsoft YaHei;
+}
+.el-tree-node.is-current > .el-tree-node__content > .el-checkbox + span {
+  color: #242424;
+  font-weight: normal;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
+}
+.el-tree-node.is-current > .el-tree-node__content .level {
+  background: #e65555;
+}
+.el-tabs__item:focus.is-active.is-focus:not(:active) {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.el-tabs__active-bar {
+  background-color: #1f3365;
+  height: 4px;
+}
+.el-tabs__item {
+  height: 60px;
+  line-height: 75px;
+  color: #5b5b5b;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+}
+.el-tabs__item:hover {
+  color: #1f3365;
+}
+.el-tabs__item.is-active {
+  color: #172853;
+  font-weight: bold;
+}
+.el-tabs__nav-wrap::after {
+  background-color: #eff0f5;
+  height: 1px;
+}
+.el-button.remove:hover,
+.el-button.remove:focus {
+  color: #fff !important;
+  border-color: rgba(31, 51, 101, 0.9);
+  background-color: rgba(31, 51, 101, 0.9);
+}
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  border-color: #1f3365;
+  background-color: #1f3365;
+}
+.el-checkbox__input.is-focus .el-checkbox__inner {
+  border-color: #1f3365;
+}
+.el-checkbox__inner:hover,
+.el-checkbox__inner:focus {
+  border-color: #1f3365;
+}
+.el-pager li.active {
+  color: #1f3365;
+}
+.el-pager li:hover {
+  color: #1f3365;
+}
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: #1f3365;
+}
+.el-pagination.is-background .el-pager li:not(.disabled):hover {
+  color: #1f3365;
+}
+.el-form-item__label {
+  color: #242424;
+}
+.filter_input {
+  width: calc(100% - 20px);
+}
+.filter_input .el-input__inner {
+  display: inline-block;
+  margin: 0 auto;
+  border-radius: 24px;
+}
+.el-input__inner,
+.el-textarea__inner {
+  border-radius: 8px;
+  border-color: #c9c9c9;
+}
+.required_label {
+  position: relative;
+}
+.required_label > .el-form-item__label:before {
+  position: absolute;
+  left: -10px;
+}
+.filter-item .el-input__inner {
+  border-radius: 24px;
+}
+.el-button.add {
+  background: #1f3365;
+  min-width: 80px;
+  color: #fff;
+  height: 36px;
+}
+.el-button.remove {
+  color: #1f3365;
+  min-width: 80px;
+  border-color: #1f3365;
+  height: 36px;
+}
+.state_err {
+  color: #e65555;
+}
+.state_ok {
+  color: #5abd8c;
+}
+.el-dialog {
+  border-radius: 6px;
+}
+.el-dialog__header {
+  background: #fbfbfb;
+  border: 1px solid #e6e5ea;
+  border-radius: 6px;
+  padding: 20px;
+  padding-bottom: 20px;
+}
+.el-dialog__body {
+  padding: 30px 50px;
+}
+.el-dialog__title {
+  color: #172853;
+  font-size: 24px;
+  font-weight: 400;
+}
+.el-input-group__prepend {
+  background: unset;
+  border: none;
+  color: #242424;
+}
+table,
+tbody,
+thead {
+  width: 100% !important;
+}
+colgroup {
+  width: 100% !important;
+}
+col {
+  flex: 1;
+}
+.greenColor {
+  color: #5abd8c;
+}
+.del_dialog .el-dialog {
+  margin-top: 35vh !important;
+}
+.del_dialog .el-dialog__body {
+  padding: 0;
+}
+.del_dialog .el-dialog__header {
+  display: none;
+}
+.el-radio__input.is-checked .el-radio__inner {
+  background: #fff;
+  border-color: #c9c9c9;
+}
+.el-radio__inner::after {
+  background: #e65555;
+  width: 9px;
+  height: 9px;
+}
+.el-radio__input.is-checked + .el-radio__label {
+  color: #e65555;
+}
+.moniSpan .el-icon-arrow-up:before {
+  content: unset !important;
+}
+.moniSpan input {
+  border: none !important;
+  background: none !important;
+  color: #606266 !important;
+  padding: unset !important;
+}
+.tree_title .hamburger-container {
+  position: absolute !important;
+  right: 3px;
+}
+.posTag {
+  padding-right: 20px;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  overflow: hidden;
+  position: relative;
+  top: 5px;
+}
+.posTag .el-icon-close {
+  position: absolute !important;
+  top: 3px !important;
+  right: 0px !important;
+}
+.el-tooltip__popper.is-dark {
+  max-width: 300px;
+}
+.el-input--medium .el-input__inner{
+  border-radius: 4px;
+}
+.el-input__inner, .el-textarea__inner {
+  border-radius: 3px;
+}
+.el-range-editor.el-input__inner {
+  border-radius: 3px!important;
+}

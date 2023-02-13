@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.CataImportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.CataImport">
+        <id column="id" property="id" />
+        <result column="file_key" property="fileKey" />
+        <result column="import_status" property="importStatus" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,  file_key, import_status, create_by, create_time, deleted
+    </sql>
+
+    <!-- 根据参数获取序列 -->
+    <select id="getSeqNext" parameterType="String" resultType="java.lang.Integer"  useCache="false" flushCache="true">
+         select nextval(#{seqName}::regclass)
+    </select>
+
+    <select id="selectPages" resultType="com.digitalchina.resourcecatalog.db.domain.CataImport">
+        select a.*,b."name" as fileName from cata_import a left join sys_storage b on a.file_key = b."key"
+        where a.deleted = 0 and a.dep_id = #{depId}
+        <if test="startDate != null and startDate != ''">
+            and to_char(create_time,'yyyy-mm-dd') >= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and to_char(create_time,'yyyy-mm-dd')  &lt;= #{endDate}
+        </if>
+        order by a.create_time desc
+    </select>
+
+</mapper>

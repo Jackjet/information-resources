@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.CataRequireReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.CataRequireReport">
+        <id column="id" property="id" />
+        <result column="report_name" property="reportName" />
+        <result column="file_key" property="fileKey" />
+        <result column="download_time" property="downloadTime" />
+        <result column="download_by" property="downloadBy" />
+        <result column="create_by" property="createBy" />
+        <result column="deleted" property="deleted" />
+        <result column="dep_id" property="depId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, report_name, file_key, download_time, download_by, create_by, deleted, dep_id
+    </sql>
+    
+	<select id="selectPages" resultType="com.digitalchina.resourcecatalog.db.domain.CataRequireReport">
+		select * from cata_require_report a
+        where a.deleted = 0 and a.dep_id = #{depId}
+        <if test="startDate != null and startDate != ''">
+            and to_char(download_time,'yyyy-mm-dd') &gt;= #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and to_char(download_time,'yyyy-mm-dd')  &lt;= #{endDate}
+        </if>
+        order by a.download_time desc
+	</select>
+</mapper>

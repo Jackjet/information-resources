@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ico-12</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页修改01" transform="translate(-706.000000, -1069.000000)">
+            <g id="政务信息资源分类" transform="translate(0.000000, 534.000000)">
+                <g id="card" transform="translate(615.000000, 503.000000)">
+                    <g id="ico-12" transform="translate(91.000000, 32.000000)">
+                        <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="48" height="48"></rect>
+                        <path d="M44.3551155,0 L39.6261551,0 L39.6261551,26.8879402 L34.8971947,20.9128602 L31.8130638,20.9128602 L27.0841034,26.8879402 L27.0841034,0 L11.4579758,0 L11.4579758,47.8008004 L44.3551155,47.8008004 C45.1775577,47.8008004 46,47.2033084 46,46.2074173 L46,1.59338313 C46,0.597545339 45.1775577,0 44.3551155,0 L44.3551155,0 Z" id="形状" fill="#0080FF" fill-rule="nonzero"></path>
+                        <path d="M2,1.59343646 L2,46.4066169 C2,47.2033084 2.61680416,48 3.64488451,48 L8.3738449,48 L8.3738449,0.000106666429 L3.64488451,0.000106666429 C2.82244226,0.000106666429 2,0.597598672 2,1.59348979 L2,1.59343646 Z" id="路径" fill="#3D3E49" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

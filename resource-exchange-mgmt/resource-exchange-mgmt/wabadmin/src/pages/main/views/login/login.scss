@@ -1,0 +1,212 @@
+$BackgroundSend: #3f7389;
+$BackgroundChild: #2c5263;
+$Backgroundlast: #406372;
+$Percentage: 100%;
+$bluck: #a8a8a8 !important;
+
+.loginBack {
+  background: url(../../../../assets/image/bg.jpg);
+  position: fixed;
+  height: $Percentage;
+  width: $Percentage;
+  // background: linear-gradient( $BackgroundSend, transparent),
+  // linear-gradient( 100deg, $BackgroundChild, transparent),
+  // linear-gradient( -100deg, $Backgroundlast, transparent);
+  background-blend-mode: screen;
+  overflow-y: auto;
+  height: 100%;
+
+  .el-container {
+    height: 100%;
+
+    .el-main {
+      height: 100%;
+      min-height: 500px;
+      position: relative;
+      display:flex;
+      /*主轴居中对齐*/
+      justify-content: center;
+      /*侧轴居中对齐*/
+      align-items: center;
+
+      .login-container {
+        background-clip: padding-box;
+        width: 380px;
+        position: relative;
+        z-index: 99;
+        .containers {
+          background:rgba(255,255,255,0.3);
+          box-shadow: 0 5px 10px #557885;
+          border-radius: 5px;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          padding: 30px 30px 10px 30px;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.Percentage {
+  width: 100% !important;
+  border-radius:  0px 0px 5px 0px;
+  width: $Percentage;
+  margin-top: 60px;
+  text-align: left;
+  z-index: 99;
+  button {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.219) !important;
+    border: 1px solid rgba(255, 255, 255, 0.486) !important;
+    &:hover {
+      background: rgba(255, 255, 255, 0.301) !important;
+      border: 1px solid rgba(255, 255, 255, 0.486) !important;
+    }
+    &:focus {
+      background: rgba(255, 255, 255, 0.301) !important;
+      border: 1px solid rgba(255, 255, 255, 0.486) !important;
+    }
+  }
+}
+
+.title {
+  margin: 0px auto 40px auto;
+  text-align: center;
+  font-size: 30px;
+  font-family: '微软雅黑';
+  line-height: 40px;
+  color: white;
+  font-weight: 600;
+  text-shadow:#23343a 0 0 10px;
+  i {
+    font-size: 60px;
+    margin-right: 10px;
+  }
+  span {
+    vertical-align: top;
+  }
+}
+
+.remember {
+  position: absolute !important;
+  left: 35px;
+  z-index: 9;
+  color: WHITE;
+  .el-checkbox__label {
+    color: white !important;
+  }
+}
+
+.copyright {
+  position: absolute;
+  bottom: 20px;
+  color:  rgb(223, 223, 223);
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+  i {
+    vertical-align: middle;
+    font-size: 20px;
+    display: inline-block;
+    margin-top: -3px;
+  }
+}
+
+.circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(211, 221, 233, 0.692);
+    animation: animate 25s linear infinite;
+    bottom: -200px;
+    @keyframes animate {
+      0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+      }
+      100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+      }
+    }
+    &:nth-child(1) {
+      left: 15%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 0s;
+    }
+    &:nth-child(2) {
+      left: 5%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 2s;
+      animation-duration: 12s;
+    }
+    &:nth-child(3) {
+      left: 70%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 4s;
+    }
+    &:nth-child(4) {
+      left: 40%;
+      width: 40px;
+      height: 40px;
+      animation-delay: 0s;
+      animation-duration: 18s;
+    }
+    &:nth-child(5) {
+      left: 65%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 0s;
+    }
+    &:nth-child(6) {
+      left: 75%;
+      width: 30px;
+      height: 30px;
+      animation-delay: 3s;
+    }
+    &:nth-child(7) {
+      left: 35%;
+      width: 25px;
+      height: 25px;
+      animation-delay: 7s;
+    }
+    &:nth-child(8) {
+      left: 50%;
+      width: 25px;
+      height: 25px;
+      animation-delay: 15s;
+      animation-duration: 45s;
+    }
+    &:nth-child(9) {
+      left: 20%;
+      width: 15px;
+      height: 15px;
+      animation-delay: 2s;
+      animation-duration: 35s;
+    }
+    &:nth-child(10) {
+      left: 85%;
+      width: 30px;
+      height: 30px;
+      animation-delay: 0s;
+      animation-duration: 11s;
+    }
+  }
+}

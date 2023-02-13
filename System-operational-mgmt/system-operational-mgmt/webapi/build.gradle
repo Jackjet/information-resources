@@ -1,0 +1,56 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE' //目前统一2.0.4版本
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'd1.project'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
+    mavenCentral()
+    maven { url 'http://code.z012.com:8081/repository/d1-java/' }//我们的私有maven库
+}
+
+
+dependencies {
+    compile project(":permission")
+    compile('net.dcrun.component:socket:1.0.1')
+    compile('net.dcrun.component:http:1.1.8')
+    compile('d1.framework:webapi:2.2.4')//基础封装库，必须依赖,最新版本号参考http://code.z012.com:8888/java-packages/d1.framework.webapi
+    runtime('org.postgresql:postgresql:42.2.10')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    /*ehcache包依赖*/
+    compile('net.dcrun.component:ehcache:1.0.0')
+    compile('net.dcrun.component:webservice.client:1.0.4')
+    /*postgre包依赖*/
+    compile('net.dcrun.component:postgre:1.0.3')
+    /*mysql包依赖*/
+    compile('net.dcrun.component:mysql:1.0.5')
+    compile('net.dcrun.component:email:1.0.5')
+    compile('net.dcrun.component:sms.ucpass:1.0.3')
+
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.0'
+    compile 'cn.afterturn:easypoi-spring-boot-starter:4.2.0'
+    compile ('net.dcrun.component:pdf:1.0.1')
+    //单点登录
+    compile group: 'org.keycloak', name: 'keycloak-admin-client', version: '10.0.0'
+
+    compile('net.dcrun.component:file.server:1.0.4')
+    compile ('net.dcrun.component:file.util:1.0.3')
+    compile('d1.framework:authz:0.0.3')
+
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2e4ea1;
+      }
+    </style>
+  </defs>
+  <path id="选项" class="cls-1" d="M0,29.286H11.714V41H0Zm29.286,0H41V41H29.286Zm-14.643,0H26.357V41H14.643ZM0,14.643H11.714V26.357H0Zm29.286,0H41V26.357H29.286ZM14.643,0H26.357V11.714H14.643Zm0,14.643H26.357V26.357H14.643Z"/>
+</svg>

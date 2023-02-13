@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.CataInfoHistoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.CataInfoHistory">
+        <id column="id" property="id" />
+        <result column="uview_id" property="uviewId" />
+        <result column="uview_nm" property="uviewNm" />
+        <result column="uview_no" property="uviewNo" />
+        <result column="belong_to" property="belongTo" />
+        <result column="belong_to_code" property="belongToCode" />
+        <result column="prov_org_id" property="provOrgId" />
+        <result column="prov_org_code" property="provOrgCode" />
+        <result column="media_fmt" property="mediaFmt" />
+        <result column="media_fmt_type" property="mediaFmtType" />
+        <result column="update_cyc" property="updateCyc" />
+        <result column="pub_dt" property="pubDt" />
+        <result column="uview_desc" property="uviewDesc" />
+        <result column="share_lv" property="shareLv" />
+        <result column="share_condition" property="shareCondition" />
+        <result column="pub_sts" property="pubSts" />
+        <result column="pub_condition" property="pubCondition" />
+        <result column="version" property="version" />
+        <result column="audit_status" property="auditStatus" />
+        <result column="is_current" property="isCurrent" />
+        <result column="deleted" property="deleted" />
+        <result column="creator" property="creator" />
+        <result column="crt_dt" property="crtDt" />
+        <result column="updater" property="updater" />
+        <result column="update_dt" property="updateDt" />
+        <result column="share_scope" property="shareScope"/>
+        <result column="data_scope" property="dataScope"/>
+        <result column="secret" property="secret"/>
+        <result column="rel_busi" property="relBusi"/>
+        <result column="rel_busi_msg" property="relBusiMsg"/>
+        <result column="city_cata_code" property="cityCataCode"/>
+        <result column="last_update_desc" property="lastUpdateDesc"/>
+        <result column="update_limit_readed" property="updateLimitReaded"/>
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uview_id, uview_nm, uview_no, belong_to, belong_to_code, prov_org_id, prov_org_code, media_fmt, media_fmt_type, update_cyc, pub_dt, uview_desc, share_lv, share_condition, pub_sts, pub_condition, version, audit_status, is_current, deleted, creator, crt_dt, updater, update_dt
+    </sql>
+
+    <update id="updateAllStatus">
+        UPDATE cata_info_history SET is_current='0' WHERE uview_id=#{infoId}
+    </update>
+</mapper>

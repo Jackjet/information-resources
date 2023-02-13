@@ -1,0 +1,49 @@
+.body_box {
+    background-image: url('../image/back_2.gif');
+}
+
+.access_num {
+    position: absolute;
+    left: 8%;
+    top: 24%;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.data_box {
+    width: 100%;
+    position: absolute;
+    bottom: 13.5%;
+    color: #fff;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.data_box .data_num {
+    margin-left: 5rem;
+}
+
+.data_box p span {
+    margin: 0 1rem;
+    font-size: 2rem;
+}
+
+.data_box_1 {
+    width: 100%;
+    position: absolute;
+    bottom: 10%;
+    color: #fff;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.data_box_1 .data_num {
+    margin-left: 5rem;
+}
+
+.data_box_1 p span {
+    margin: 0 1rem;
+    font-size: 2rem;
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.FileCenterRelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.FileCenterRel">
+        <id column="id" property="id"/>
+        <result column="storage_id" property="storageId"/>
+        <result column="file_remark" property="fileRemark"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="file_name" property="fileName"/>
+        <result column="dw_count" property="dwCount"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, storage_id, file_remark, create_by, create_time, file_name, dw_count
+    </sql>
+
+    <select id="myPage" resultType="java.util.HashMap">
+        SELECT
+        r."id",
+        r.file_name "fileName",
+        split_part(
+        s."name",
+        '.',
+        "length" ( "replace" ( s."name", '.', '..' ) ) - "length" ( s."name" ) + 1
+        ) AS format,
+        CAST ( s."size" * 1.0 / ( 1024 * 1024 ) AS DECIMAL ( 18, 2 ) ) "size",
+        r.dw_count "dwCount",
+        to_char(r.create_time, 'YYYY-MM-DD HH24:MI:SS') as "createTime",
+        r.create_by "createBy",
+        s.url
+        FROM
+        file_center_rel r
+        LEFT JOIN sys_storage s ON s."id" = r.storage_id
+        where  s.deleted = 0 
+        <if test="fileName !=null and fileName !=''">
+            and r.file_name like CONCAT(CONCAT('%',#{fileName}),'%')
+        </if>
+        order by r.create_time desc
+    </select>
+
+    <select id="detail" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+        SELECT
+            r."id",
+            r.file_name "fileName",
+            r.storage_id "storageId",
+            r.file_remark "fileRemark",
+            s."name"
+        FROM
+            file_center_rel r
+            LEFT JOIN sys_storage s ON s."id" = r.storage_id
+        where r.id=#{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'd1.project.container.componet'
+version '1.0.1'
+
+repositories {
+    mavenCentral()
+}
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+dependencies {
+    implementation project(':base')
+    implementation 'org.apache.cxf:cxf-rt-frontend-jaxws:3.2.4'
+    implementation 'org.apache.cxf:cxf-rt-transports-http:3.2.4'
+}
+

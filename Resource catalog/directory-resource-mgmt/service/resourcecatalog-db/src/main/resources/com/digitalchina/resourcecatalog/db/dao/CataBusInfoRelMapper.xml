@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.CataBusInfoRelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.CataBusInfoRel">
+        <id column="id" property="id"/>
+        <result column="info_id" property="infoId"/>
+        <result column="bus_id" property="busId"/>
+        <result column="type" property="type"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, info_id, bus_id, type
+    </sql>
+
+    <select id="cataInfoPage" resultType="java.util.HashMap">
+        <if test="type==0">
+            SELECT
+            r."id",
+            r.info_id "infoId",
+            r.bus_id "busId",
+            r."type",
+            o.org_nm AS "orgNm",
+            e.uview_id AS "uviewId",
+            e.uview_nm AS "uviewNm",
+            e.uview_no AS "uviewNo",
+            e.prov_org_id AS "provOrgId",
+            e.prov_org_code AS "provOrgCode"
+            FROM cata_info_temp e
+            LEFT JOIN cata_bus_info_rel r ON e.uview_id = r.info_id
+            LEFT JOIN arch_org o ON o.org_id = e.prov_org_id
+            WHERE
+            r."type" = #{type}
+            AND r.bus_id =#{busiId}
+            AND e.deleted=0
+            ORDER BY e.uview_no
+        </if>
+        <if test="type==1">
+            SELECT
+            r."id",
+            r.info_id "infoId",
+            r.bus_id "busId",
+            r."type",
+            o.org_nm "orgNm",
+            e."name" "uviewNm",
+            e."id" "uviewId",
+            e.code "uviewNo",
+            e.prov_org_id "provOrgId",
+            e.prov_org_code "provOrgCode"
+            FROM cata_require e
+            LEFT JOIN cata_bus_info_rel r  ON e."id" = r.info_id
+            LEFT JOIN arch_org o ON o.org_id = e.prov_org_id
+            WHERE
+            r."type" = #{type}
+            AND e.deleted=0
+            AND r.bus_id = #{busiId}
+            ORDER BY
+            e.code
+        </if>
+
+    </select>
+    <select id="selectPages" resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+        select * from arch_busi b
+        left join cata_bus_info_rel a on b.busi_id=a.bus_id and a.type=#{type}
+        where a.info_id=#{infoId}
+        <if test="busiNoAndBusiNm != null and busiNoAndBusiNm != ''">
+            and (b.busi_no like CONCAT(CONCAT('%',#{busiNoAndBusiNm}),'%') or b.busi_nm like
+            CONCAT(CONCAT('%',#{busiNoAndBusiNm}),'%'))
+        </if>
+        <if test="busiNo != null and busiNo != ''">
+            and b.busi_no like CONCAT(CONCAT('%',#{busiNo}),'%')
+        </if>
+        <if test="busiNm != null and busiNm != ''">
+            and b.busi_nm like CONCAT(CONCAT('%',#{busiNm}),'%')
+        </if>
+        order by b.busi_no
+    </select>
+
+    <select id="selectBusPage" resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi">
+        select * from arch_busi b
+        where b.busi_id not in(select bus_id from cata_bus_info_rel where info_id=#{infoId} and type=#{type})
+        <if test="busiNoAndBusiNm != null and busiNoAndBusiNm != ''">
+            and (b.busi_no like CONCAT(CONCAT('%',#{busiNoAndBusiNm}),'%') or b.busi_nm like
+            CONCAT(CONCAT('%',#{busiNoAndBusiNm}),'%'))
+        </if>
+        <if test="busiNo != null and busiNo != ''">
+            and b.busi_no like CONCAT(CONCAT('%',#{busiNo}),'%')
+        </if>
+        <if test="busiNm != null and busiNm != ''">
+            and b.busi_nm like CONCAT(CONCAT('%',#{busiNm}),'%')
+        </if>
+        <if test="deptId != null and deptId != ''">
+            and b.dept_id = #{deptId}
+        </if>
+        order by b.busi_no
+    </select>
+</mapper>

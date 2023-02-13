@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>操作结果</title>
+  <style type="text/css">
+    table, th, td {
+      border: 1px #cad9ea;
+      border-style: dotted solid;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      font-family: "宋体", "Microsoft YaHei", "Arial", "黑体", sans-serif;
+      color: #0000ff;
+    }
+
+    p {
+      font-family: "宋体", "Microsoft YaHei", "Arial", "黑体", sans-serif;
+    }
+
+  </style>
+</head>
+<body onload="load()">
+<div style="margin-left: 20px;">
+  <p id="title"/>
+  <table id="table" width="95%"/>
+</div>
+</body>
+<script type="text/javascript">
+  function load () {
+    let title = document.getElementById('title')
+    let table = document.getElementById('table')
+
+    let result = decodeURI(window.location.search.slice(1))
+    result = result.substring(result.indexOf('=') + 1)
+
+    let lines = result.split('@@')
+    let data = ''
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i]
+      if (line == '') {
+        continue
+      }
+
+      let row = table.insertRow()
+      let cell = row.insertCell()
+      if (i == 0) {
+        let strs = line.split('：')
+        title.innerText = strs[0] + '：'
+
+        let newData = JSON.stringify(JSON.parse(strs[1]), null, 4)
+        cell.innerHTML = '<pre style="font-size: 16px;font-family: arial;"><code>' + newData + '</code></pre>'
+        continue
+      }
+
+      cell.innerHTML = line + '</br>'
+    }
+  }
+
+</script>
+</html>

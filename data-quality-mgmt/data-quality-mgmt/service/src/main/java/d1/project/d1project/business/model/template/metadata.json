@@ -1,0 +1,54 @@
+{
+  "type": "Postgresql",//数据库类型
+  "sourceId":"",		//源数据库id
+  "sourceName":"",		//源数据库名称
+  "source": {			//源数据库
+    "name": "t1",		//表名
+    "fields": [			//字段信息
+      {
+        "name": "id",
+        "type": "varchar",
+        "length": "32"
+      },
+      {
+        "name": "name",
+        "type": "varchar",
+        "length": "255"
+      },
+      {
+        "name": "age",
+        "type": "int",
+        "length": "-1"
+      }
+    ]
+  },
+  "target": {		  //目标数据源
+    "name": "t2",
+    "fields": [
+      {
+        "name": "id",
+        "type": "varchar",
+        "length": "32"
+      },
+      {
+        "name": "name",
+        "type": "varchar",
+        "length": "255"
+      },
+      {
+        "name": "age",
+        "type": "int",
+        "length": "-1"
+      }
+    ]
+  },
+  "operators": [
+    "=",
+    ">"
+  ],
+  "values": [
+    "15",
+    "40"
+  ],
+  "union": false
+}

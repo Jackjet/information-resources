@@ -1,0 +1,1 @@
+nohup java -jar /data/websites/resource_catalog/resourcecatalog-admin-api-0.1.0-exec.jar --server.port=8084 --spring.profiles.active=dbtianjin,coretianjin,tianjin > /data/websites/resource_catalog/logs/all.log 2>&1 &

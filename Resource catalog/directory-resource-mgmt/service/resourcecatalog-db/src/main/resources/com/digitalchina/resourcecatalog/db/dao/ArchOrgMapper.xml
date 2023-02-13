@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.ArchOrgMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.ArchOrg">
+        <id column="org_id" property="orgId"/>
+        <result column="org_nm" property="orgNm"/>
+        <result column="org_cd" property="orgCd"/>
+        <result column="org_linkman" property="orgLinkman"/>
+        <result column="org_tel" property="orgTel"/>
+        <result column="org_fax" property="orgFax"/>
+        <result column="org_mail" property="orgMail"/>
+        <result column="org_duty" property="orgDuty"/>
+        <result column="addr" property="addr"/>
+        <result column="creator" property="creator"/>
+        <result column="updater" property="updater"/>
+        <result column="crt_dt" property="crtDt"/>
+        <result column="update_dt" property="updateDt"/>
+        <result column="org_alias" property="orgAlias"/>
+        <result column="social_credit_cd" property="socialCreditCd"/>
+        <result column="dispaly_sn" property="dispalySn"/>
+        <result column="par_org_id" property="parOrgId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        org_id as, org_nm, org_cd, org_linkman, org_tel, org_fax, org_mail, org_duty, addr, creator, updater, crt_dt, update_dt, org_alias, social_credit_cd, dispaly_sn, par_org_id
+    </sql>
+
+    <select id="detail" resultType="com.digitalchina.resourcecatalog.db.domain.ArchOrg"
+            parameterType="java.lang.Integer">
+        SELECT o1.*,o2.org_nm as org_nm_par,o2.org_alias as org_alias_par FROM arch_org o1
+        LEFT JOIN arch_org o2 on o1.par_org_id=o2.org_id
+        WHERE o1.org_id=#{orgId}
+    </select>
+
+    <select id="getMaxOrgCdByPidIsNull" resultType="java.lang.Integer">
+        SELECT MAX
+	        ( b.org_cd )
+        FROM
+	        ( SELECT CAST ( org_cd AS bigint ) FROM arch_org WHERE par_org_id IS NULL ) AS b
+    </select>
+
+    <select id="getMaxOrgCdByPid" resultType="java.lang.Integer">
+        SELECT MAX
+	        ( b.org_cd )
+        FROM
+	        ( SELECT CAST ( org_cd AS bigint ) FROM arch_org WHERE par_org_id=#{parOrgId} ) AS b
+    </select>
+
+    <select id="getDeptTreeList" resultType="com.digitalchina.resourcecatalog.db.domain.ArchOrg">
+        SELECT a.*,a.org_nm as "busiNm",a.org_cd as "busiNo"
+        FROM arch_org a
+        WHERE a.org_id in
+        <foreach collection="deptIds" item="deptId" index="index" open="(" separator="," close=")">
+            #{deptId}
+        </foreach>
+        order by a.dispaly_sn
+    </select>
+
+    <select id="selectListAs" resultType="com.digitalchina.resourcecatalog.db.domain.ArchOrg">
+        SELECT
+            o.*,
+            o.org_id,
+            o.org_nm AS "busiNm",
+            o.org_cd AS "busiNo"
+        FROM
+            arch_org o
+        where
+            o.par_org_id is null
+        order by o.dispaly_sn
+    </select>
+
+    <select id="top10Dept" resultType="com.digitalchina.resourcecatalog.db.domain.Result"
+            parameterType="java.lang.String">
+        SELECT
+        o.org_nm AS "name",
+        COALESCE ( u.total, 0 ) AS total
+        FROM
+        arch_org o
+        INNER JOIN ( SELECT COUNT ( uview_id ) AS "total", prov_org_id FROM cata_info_temp
+        WHERE deleted = 0
+        <if test="shareType != null and shareType !=''">
+            and share_lv != #{shareType}
+        </if>
+        GROUP BY prov_org_id ) u ON u.prov_org_id = o.org_id
+        ORDER BY
+        total DESC
+        LIMIT 15
+    </select>
+
+    <select id="getDispalySn" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select MAX(dispaly_sn) from arch_org
+        <choose>
+            <when test="parOrgId != null and parOrgId !=''">
+                where par_org_id=#{parOrgId}
+            </when>
+            <otherwise>
+                where par_org_id is null
+            </otherwise>
+        </choose>
+    </select>
+    <select id="getMaxSecondLevel" resultType="java.util.Map" >
+        select par_org_id, max(substr(org_cd, 3, 4)::bigint) as maxSn from  arch_org where par_org_id is not null
+        group by  par_org_id
+    </select>
+</mapper>

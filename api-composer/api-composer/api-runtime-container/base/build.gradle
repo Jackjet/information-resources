@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'd1.project.container.api'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+dependencies {
+    compile 'com.alibaba:fastjson:1.2.16'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile 'com.jayway.jsonpath:json-path:2.2.0'
+}

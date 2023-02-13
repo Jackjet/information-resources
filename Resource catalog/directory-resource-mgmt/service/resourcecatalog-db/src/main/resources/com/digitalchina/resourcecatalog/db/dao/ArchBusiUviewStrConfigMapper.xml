@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.ArchBusiUviewStrConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.ArchBusiUviewStrConfig">
+        <id column="id" property="id" />
+        <result column="item_name" property="itemName" />
+        <result column="item_mark" property="itemMark" />
+        <result column="item_code" property="itemCode" />
+        <result column="is_choice" property="isChoice" />
+        <result column="is_inside" property="isInside" />
+        <result column="item_type" property="itemType" />
+        <result column="order_num" property="orderNum" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, item_name, item_mark, item_code, is_choice, is_inside, item_type, order_num, create_by, create_time, update_by, update_time
+    </sql>
+
+</mapper>

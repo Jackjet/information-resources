@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.CataInfoApproveMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.CataInfoApprove">
+        <id column="id" property="id" />
+        <result column="info_id" property="infoId" />
+        <result column="status" property="status" />
+        <result column="comment" property="comment" />
+        <result column="check_by_id" property="checkById" />
+        <result column="check_by_name" property="checkByName" />
+        <result column="version" property="version" />
+        <result column="check_time" property="checkTime" />
+        <result column="opt_type" property="optType" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, info_id, status, comment, check_by_id, check_by_name, version, check_time, opt_type
+    </sql>
+
+    <select id="getCataInfoList" resultType="java.util.Map">
+        SELECT a.uview_id,a.uview_no,a.uview_nm,c.org_id,c.org_nm,to_char(a.update_dt,'yyyy-MM-dd hh24:MI:ss') update_dt,a.audit_status
+        FROM cata_info_temp a
+        LEFT JOIN arch_org c ON a.prov_org_id=c.org_id
+        WHERE deleted=0
+        <if test="name !=null and name != ''">
+            AND a.uview_nm LIKE CONCAT(CONCAT('%',#{name}),'%')
+        </if>
+        <if test="pid !=null ">
+            AND a.prov_org_id=#{pid}
+        </if>
+        <choose>
+            <when test="auditStatus !=null and auditStatus != ''">
+                AND a.audit_status=#{auditStatus}
+            </when>
+            <otherwise>
+                AND a.audit_status in('1','2','3','4','5')
+            </otherwise>
+        </choose>
+        ORDER BY a.update_dt DESC
+    </select>
+    <select id="getDeleteCheckCataInfoList" resultType="java.util.Map">
+        SELECT cia.id, cia.status, cia.opt_type, to_char(cia.check_time,'yyyy-MM-dd hh24:MI:ss') check_time, a.uview_id,a.uview_no,a.uview_nm,c.org_id,c.org_nm,to_char(a.update_dt,'yyyy-MM-dd hh24:MI:ss') update_dt,a.audit_status
+        from (select * from cata_info_approve where opt_type='删除审核') cia
+        left join cata_info_temp a on cia.info_id=a.uview_id
+        LEFT JOIN arch_org c ON a.prov_org_id=c.org_id
+        WHERE 1=1
+        <if test="name !=null and name != ''">
+            AND a.uview_nm LIKE CONCAT(CONCAT('%',#{name}),'%')
+        </if>
+        <if test="pid !=null ">
+            AND a.prov_org_id=#{pid}
+        </if>
+        <if test="auditStatus !=null and auditStatus != ''">
+            AND a.audit_status=#{auditStatus}
+        </if>
+        <if test="deleteStatus !=null">
+            AND cia.status =#{deleteStatus}
+        </if>
+        ORDER BY cia.id DESC
+    </select>
+
+</mapper>

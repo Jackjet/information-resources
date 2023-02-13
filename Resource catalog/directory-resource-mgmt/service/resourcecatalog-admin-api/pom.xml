@@ -1,0 +1,111 @@
+
+
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>resourcecatalog-admin-api</artifactId>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.digitalchina</groupId>
+        <artifactId>resourcecatalog</artifactId>
+        <version>0.1.0</version>
+    </parent>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+
+    <repositories>
+        <repository>
+            <id>d1</id>
+            <name>framework</name>
+            <url>http://code.z012.com:8081/repository/d1-java/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+
+<!--        <dependency>-->
+<!--            <groupId>d1.framework</groupId>-->
+<!--            <artifactId>authz</artifactId>-->
+<!--            <version>0.0.3</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>com.digitalchina</groupId>
+            <artifactId>resourcecatalog-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.digitalchina</groupId>
+            <artifactId>resourcecatalog-db</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.xiaoymin</groupId>-->
+<!--            <artifactId>knife4j-spring-boot-starter</artifactId>-->
+<!--            &lt;!&ndash;在引用时请在maven中央仓库搜索最新版本号&ndash;&gt;-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring-boot-web-starter</artifactId>
+        </dependency>
+		<dependency>
+		    <groupId>cn.hutool</groupId>
+		    <artifactId>hutool-poi</artifactId>
+		    <!-- <scope>test</scope> -->
+		    <version>4.5.18</version>
+		</dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.poi</groupId>-->
+            <!--<artifactId>poi-ooxml</artifactId>-->
+            <!--<scope>test</scope>-->
+            <!--<version>3.17</version>-->
+        <!--</dependency>-->
+         <!--<dependency>-->
+            <!--<groupId>org.apache.poi</groupId>-->
+            <!--<artifactId>poi-ooxml-schemas</artifactId>-->
+            <!--<scope>test</scope>-->
+            <!--<version>3.17</version>-->
+        <!--</dependency>-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <configuration>
+                            <executable>true</executable>
+                            <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

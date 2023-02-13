@@ -1,0 +1,57 @@
+pagehelper:
+  helperDialect:  mysql
+  reasonable: true
+  supportMethodsArguments:  true
+  params: count=countSql
+
+spring:
+  datasource:
+    druid:
+      url:  jdbc:postgresql://8.140.114.226:5432/tianjin_resource_catalog?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      driver-class-name:  org.postgresql.Driver
+      username:  postgres
+      password:  Qwer@1234
+      initial-size:  10
+      max-active:  50
+      min-idle:  10
+      max-wait:  60000
+      pool-prepared-statements:  true
+      max-pool-prepared-statement-per-connection-size:  20
+      validation-query:  SELECT 1 FROM sys_user
+      test-on-borrow:  false
+      test-on-return:  false
+      test-while-idle:  true
+      time-between-eviction-runs-millis:  60000
+      filters:  stat,wall
+#  rabbitmq:
+#    host: 47.95.244.4
+#    port: 5672
+#    username: test
+#    password: test
+#    virtual-host: /
+#    # p端收到回调，确认消息发送结果
+#    publisher-confirms: true
+#    publisher-returns: true
+#    template:
+#      mandatory: true
+#    listener:
+#      simple:
+#        acknowledge-mode: manual #采用手动应答方式
+#        concurrency: 1 #指定最小的消费者数量
+#        max-concurrency: 10 #指定最大的消费者数量
+#        retry:
+#          enabled: true #是否支持重试
+
+#templatepath: E:\Project2021\resource_catalog\templates\
+templatepath: /data/websites/resource_catalog/template/
+
+#认证keycloak
+keycloak:
+  auth-server-url: http://8.140.114.226:9001/auth/
+  realm: tianjin
+  resource: resource_catalog_js
+userKeycloak:
+  username: admin
+  password: 123456
+  defaultPwd: 123456
+  enable: true

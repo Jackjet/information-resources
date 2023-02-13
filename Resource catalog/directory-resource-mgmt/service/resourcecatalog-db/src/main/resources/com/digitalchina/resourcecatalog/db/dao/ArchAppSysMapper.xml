@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digitalchina.resourcecatalog.db.dao.ArchAppSysMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.digitalchina.resourcecatalog.db.domain.ArchAppSys">
+        <id column="appsys_id" property="appsysId"/>
+        <result column="prov_org_id" property="provOrgId"/>
+        <result column="belong_to" property="belongTo"/>
+        <result column="appsys_no" property="appsysNo"/>
+        <result column="appsys_nm" property="appsysNm"/>
+        <result column="nature" property="nature"/>
+        <result column="appsys_desc" property="appsysDesc"/>
+        <result column="position" property="position"/>
+        <result column="net_type" property="netType"/>
+        <result column="remark" property="remark"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        appsys_id, prov_org_id, belong_to, appsys_no, appsys_nm, nature, appsys_desc, position, net_type, remark, created_by, created_time, updated_by, updated_time
+    </sql>
+
+    <select id="getBusiRelList" resultType="com.digitalchina.resourcecatalog.db.domain.ArchBusi"
+            parameterType="java.lang.Integer">
+        SELECT
+            b.busi_id "busiId",b.busi_nm "busiNm",b.busi_no "busiNo"
+        FROM
+            arch_busi b
+            LEFT JOIN cata_app_bus_rel r ON b.busi_id = r.item_id
+        WHERE
+            r.app_id =#{appsysId}
+    </select>
+
+    <select id="getNodes" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+            SELECT s.appsys_id "appId",0 "category",s.appsys_nm "name"
+            FROM arch_app_sys s
+            WHERE s.appsys_id = #{appId}
+        UNION ALL
+            SELECT b.busi_id "appId",1 "category",b.busi_nm "name"
+            FROM arch_app_sys s
+            LEFT JOIN cata_app_bus_rel r ON r.app_id = s.appsys_id
+            LEFT JOIN arch_busi b ON b.busi_id = r.item_id
+            WHERE s.appsys_id = #{appId} AND b.busi_id IS NOT NULL
+        UNION ALL
+            SELECT T.uview_id "appId",2 "category",T.uview_nm "name"
+            FROM arch_app_sys s
+            LEFT JOIN cata_app_bus_rel r ON r.app_id = s.appsys_id
+            LEFT JOIN arch_busi b ON b.busi_id = r.item_id
+            LEFT JOIN cata_bus_info_rel i ON i.bus_id = b.busi_id AND i."type" = 0
+            LEFT JOIN cata_info_temp T ON T.uview_id = i.info_id
+            WHERE s.appsys_id = #{appId} AND b.busi_id IS NOT NULL AND T.uview_id IS NOT NULL and T.deleted=0
+        UNION
+            SELECT T."id" "appId",3 "category",T."name" "name" FROM arch_app_sys s
+            LEFT JOIN cata_app_bus_rel r ON r.app_id = s.appsys_id
+            LEFT JOIN arch_busi b ON b.busi_id = r.item_id
+            LEFT JOIN cata_bus_info_rel i ON i.bus_id = b.busi_id AND i."type" = 1
+            LEFT JOIN cata_require T ON T."id" = i.info_id
+            WHERE s.appsys_id = #{appId} AND b.busi_id IS NOT NULL AND T."id" IS NOT NULL and T.deleted=0
+    </select>
+
+    <select id="getLinks" parameterType="java.lang.Integer" resultType="java.util.HashMap">
+            SELECT s.appsys_nm "source",b.busi_nm "target",'权责清单' "name"
+            FROM arch_app_sys s
+            LEFT JOIN cata_app_bus_rel r ON r.app_id = s.appsys_id
+            LEFT JOIN arch_busi b ON b.busi_id = r.item_id
+            WHERE s.appsys_id = #{appId} AND b.busi_id IS NOT NULL
+    UNION ALL
+            SELECT b.busi_nm "source",t.uview_nm "target",'资源目录' "name"
+            FROM arch_app_sys s
+            LEFT JOIN cata_app_bus_rel r ON r.app_id = s.appsys_id
+            LEFT JOIN arch_busi b ON b.busi_id = r.item_id
+            LEFT JOIN cata_bus_info_rel i ON i.bus_id = b.busi_id AND i."type" = 0
+            LEFT JOIN cata_info_temp T ON T.uview_id = i.info_id
+            WHERE s.appsys_id = #{appId} AND b.busi_id IS NOT NULL AND T.uview_id IS NOT NULL and T.deleted=0
+    UNION ALL
+            SELECT t."name" "source",b.busi_nm "target",'需求目录' "name" FROM arch_app_sys s
+            LEFT JOIN cata_app_bus_rel r ON r.app_id = s.appsys_id
+            LEFT JOIN arch_busi b ON b.busi_id = r.item_id
+            LEFT JOIN cata_bus_info_rel i ON i.bus_id = b.busi_id AND i."type" = 1
+            LEFT JOIN cata_require T ON T."id" = i.info_id
+            WHERE s.appsys_id = #{appId} AND b.busi_id IS NOT NULL AND T."id" IS NOT NULL and T.deleted=0
+    </select>
+
+</mapper>
